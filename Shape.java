@@ -1,5 +1,6 @@
 package groupProject.paint.main;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public abstract class Shape {
@@ -8,15 +9,25 @@ public abstract class Shape {
 	private int y;
 	private int height;
 	private int width;
+	private Color shapeColor;
 
-	public Shape(int x, int y, int height, int width) {
+	public Shape(int x, int y, int height, int width, Color color) {
 
 		this.x = x;
 		this.y = y;
 		this.height = height;
 		this.width = width;
+		this.shapeColor = color;
 	}
-
+	
+	public Color getShapeColor() {
+		return shapeColor;
+	}
+	public void setShapeColor(Color newShapeColor) {
+		shapeColor = newShapeColor;
+	} 
+	
+	
 	public int getX() {
 		return x;
 	}
