@@ -78,12 +78,24 @@ public class Main {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				canvas.setCurrentShape("Rectangle");
 			}
 
 		};
 		rectBtn.addActionListener(rectAL);
 		buttons.add(rectBtn);
+		
+		JButton emptyRectBtn = new JButton("Empty Rectangle");
+		ActionListener emptyRectAL = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				canvas.setCurrentShape("Empty Rectangle");
+			}
+
+		};
+		emptyRectBtn.addActionListener(emptyRectAL);
+		buttons.add(emptyRectBtn);
 		
 		
 		
