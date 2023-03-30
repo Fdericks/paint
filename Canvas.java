@@ -18,7 +18,7 @@ public class Canvas extends JPanel { // specialized JPanel
 
 	private Color currentColor = Color.BLACK;
 
-	private String currentShape;
+	private String currentShape = "Rectangle";
 
 	public void setColor(Color newColor) {
 		currentColor = newColor;
@@ -56,13 +56,17 @@ public class Canvas extends JPanel { // specialized JPanel
 
 				int currentX = e.getX();
 				int currentY = e.getY();
-
+				try {
 				if (currentShape.equals("Rectangle")) {
 					createRect(currentX, currentY);
 				} else if (currentShape.equals("Empty Rectangle")) {
 					createEmptyRect(currentX, currentY);
+				} else if (currentShape.equals("Triangle")) {
+					createTriang(currentX,currentY);
 				}
-
+				} catch (Exception error) {
+					repaint();
+				}
 				repaint(); // calls paint component again
 
 //				else if ((currentX-initialX)<0) && (currentY-initialY)>0 {
@@ -92,7 +96,7 @@ public class Canvas extends JPanel { // specialized JPanel
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Mouse Clicked: " + e.getX());
-				Circle stroke = new Circle(e.getX(), e.getY(), 10, 10, currentColor);
+				Circle stroke = new Circle(e.getX()-5, e.getY()-5, 10, 10, currentColor);
 				shapes.add(stroke);
 				repaint();
 			}
@@ -127,7 +131,7 @@ public class Canvas extends JPanel { // specialized JPanel
 			rect = new Rectangle(initialX, initialY - deltaY, deltaY, deltaX, currentColor);
 		} else if ((newX - initialX) < 0 && (newY - initialY > 0)) { // III quadrant
 			rect = new Rectangle(initialX - deltaX, initialY, deltaY, deltaX, currentColor);
-		} else {
+		} else { //invalid shape
 			rect = new Rectangle(initialX, initialY, 0, 0, currentColor);
 		}
 		shapes.add(rect);
@@ -148,9 +152,29 @@ public class Canvas extends JPanel { // specialized JPanel
 			empRect = new EmptyRectangle(initialX, initialY - deltaY, deltaY, deltaX, currentColor);
 		} else if ((newX - initialX) < 0 && (newY - initialY > 0)) { // III quadrant
 			empRect = new EmptyRectangle(initialX - deltaX, initialY, deltaY, deltaX, currentColor);
-		} else {
+		} else { //invalid shape
 			empRect = new EmptyRectangle(initialX, initialY, 0, 0, currentColor);
 		}
 		shapes.add(empRect);
+	}
+	private void createTriang(int newX,int newY) {
+		
+		int deltaX = Math.abs(initialX - newX);
+		int deltaY = Math.abs(initialY - newY);
+
+		Triangle triangle;
+		if ((newX - initialX) > 0 && (newY - initialY) > 0) { // IV quadrant
+			triangle = new Triangle(initialX, initialY+deltaY, deltaY, deltaX, currentColor);
+
+		} else if ((newX - initialX) < 0 && (newY - initialY) < 0) { // II quadrant
+			triangle = new Triangle(newX, newY+deltaY, deltaY, deltaX, currentColor);
+		} else if ((newX - initialX) > 0 && (newY - initialY) < 0) { // I quadrant
+			triangle = new Triangle(initialX, initialY, deltaY, deltaX, currentColor);
+		} else if ((newX - initialX) < 0 && (newY - initialY > 0)) { // III quadrant
+			triangle = new Triangle(initialX - deltaX, initialY+deltaY, deltaY, deltaX, currentColor);
+		} else { //invalid shape
+			triangle = new Triangle(initialX, initialY, 0, 0, currentColor);
+		}
+		shapes.add(triangle);
 	}
 }

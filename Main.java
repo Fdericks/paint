@@ -97,7 +97,17 @@ public class Main {
 		emptyRectBtn.addActionListener(emptyRectAL);
 		buttons.add(emptyRectBtn);
 		
-		
+		JButton triangleBtn = new JButton("Triangle");
+		ActionListener triangleAL = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				canvas.setCurrentShape("Triangle");
+			}
+
+		};
+		triangleBtn.addActionListener(triangleAL);
+		buttons.add(triangleBtn);
 		
 		
 		JPanel buttonPanel = new JPanel();
