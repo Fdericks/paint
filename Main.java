@@ -37,7 +37,7 @@ public class Main {
 		// button panel setup
 
 		// canvas setup
-		int canvasHeight = 600;
+		int canvasHeight = 615;
 		int canvasWidth = 685;
 		Canvas canvas = new Canvas(frameWidth - 15, canvasHeight);
 		canvas.setPreferredSize(new Dimension(canvasWidth, canvasHeight));

@@ -18,7 +18,7 @@ public class Canvas extends JPanel { // specialized JPanel
 
 	private Color currentColor = Color.BLACK;
 
-	private String currentShape = "Rectangle";
+	private String currentShape;
 
 	public void setColor(Color newColor) {
 		currentColor = newColor;
@@ -65,7 +65,7 @@ public class Canvas extends JPanel { // specialized JPanel
 					createTriang(currentX,currentY);
 				}
 				} catch (Exception error) {
-					repaint();
+					System.out.println("Select a shape. Once we add the brush method, this catch should check for the brush size and accordingly paint.");
 				}
 				repaint(); // calls paint component again
 
