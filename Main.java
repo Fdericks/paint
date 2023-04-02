@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -30,38 +31,34 @@ public class Main {
 
 
 
-		// define panel and layout
+		// define panels with layouts
 
 		JPanel mainPanel = new JPanel();
-
-		// button panel setup
-
+		
+		// Top Panel layout setup
+		JPanel shapeButtonPanel = new JPanel();
+		JPanel colorButtonPanel = new JPanel();
+		JPanel topPanel = new JPanel();
+		topPanel.add(colorButtonPanel);
+		topPanel.add(shapeButtonPanel);
+		
+		GridLayout gridLayout = new GridLayout(2,0); //create grid of two rows and as many columns as necessary.
+		colorButtonPanel.setLayout(gridLayout);
+		shapeButtonPanel.setLayout(gridLayout);
+		
 		// canvas setup
 		int canvasHeight = 615;
-		int canvasWidth = 685;
-		Canvas canvas = new Canvas(frameWidth - 15, canvasHeight);
-		canvas.setPreferredSize(new Dimension(canvasWidth, canvasHeight));
-		
-		
-		
-		
+		int canvasWidth = frameWidth-15;
+		Canvas canvas = new Canvas(canvasWidth, canvasHeight);
+		canvas.setPreferredSize(new Dimension(canvasWidth, canvasHeight));	
 		
 		// define buttons with action listeners
 
-		ArrayList<JButton> buttons = new ArrayList<JButton>();
+		ArrayList<JButton> colorButtons = new ArrayList<JButton>();
+		ArrayList<JButton> shapeButtons = new ArrayList<JButton>();
 
-		JButton redBtn = new JButton("Red");
-		ActionListener redAL = new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Button Clicked");
-				canvas.setColor(Color.RED);
-			}
-		};
-		redBtn.addActionListener(redAL);
-		buttons.add(redBtn);
-
+		
+		//color buttons
 		JButton blackBtn = new JButton("Black");
 		ActionListener blackAL = new ActionListener() {
 
@@ -71,8 +68,86 @@ public class Main {
 			}
 		};
 		blackBtn.addActionListener(blackAL);
-		buttons.add(blackBtn);
+		colorButtons.add(blackBtn);
+				
+		JButton redBtn = new JButton("Red");
+		ActionListener redAL = new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				canvas.setColor(Color.RED);
+			}
+		};
+		redBtn.addActionListener(redAL);
+		colorButtons.add(redBtn);
+		
+		
+		JButton oranBtn = new JButton("Orange");
+		ActionListener oranAL = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				canvas.setColor(Color.ORANGE);
+			}
+		};
+		oranBtn.addActionListener(oranAL);
+		colorButtons.add(oranBtn);
+		
+		
+		JButton yellowBtn = new JButton("Yellow");
+		ActionListener yellowAL = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				canvas.setColor(Color.YELLOW);
+			}
+		};
+		yellowBtn.addActionListener(yellowAL);
+		colorButtons.add(yellowBtn);
+		
+		
+		JButton greenBtn = new JButton("Green");
+		ActionListener greenAL = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				canvas.setColor(Color.GREEN);
+			}
+		};
+		greenBtn.addActionListener(greenAL);
+		colorButtons.add(greenBtn);
+
+		JButton blueBtn = new JButton("Blue");
+		ActionListener blueAL = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				canvas.setColor(Color.BLUE);
+			}
+		};
+		blueBtn.addActionListener(blueAL);
+		colorButtons.add(blueBtn);
+		
+		JButton whiteBtn = new JButton("White");
+		ActionListener whiteAL = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				canvas.setColor(Color.WHITE);
+			}
+		};
+		whiteBtn.addActionListener(whiteAL);
+		colorButtons.add(whiteBtn);
+			
+		JButton colorButton = new JButton("Color");
+		colorButton.addActionListener(e -> {
+			Color color = JColorChooser.showDialog(colorButton, "Select Color", canvas.getColor());
+			canvas.setColor(color);
+		});
+		colorButtons.add(colorButton);
+
+		
+		//shape buttons
 		JButton rectBtn = new JButton("Rectangle");
 		ActionListener rectAL = new ActionListener() {
 
@@ -83,7 +158,7 @@ public class Main {
 
 		};
 		rectBtn.addActionListener(rectAL);
-		buttons.add(rectBtn);
+		shapeButtons.add(rectBtn);
 		
 		JButton emptyRectBtn = new JButton("Empty Rectangle");
 		ActionListener emptyRectAL = new ActionListener() {
@@ -95,7 +170,7 @@ public class Main {
 
 		};
 		emptyRectBtn.addActionListener(emptyRectAL);
-		buttons.add(emptyRectBtn);
+		shapeButtons.add(emptyRectBtn);
 		
 		JButton triangleBtn = new JButton("Triangle");
 		ActionListener triangleAL = new ActionListener() {
@@ -107,31 +182,70 @@ public class Main {
 
 		};
 		triangleBtn.addActionListener(triangleAL);
-		buttons.add(triangleBtn);
+		shapeButtons.add(triangleBtn);
 		
-		
-		JPanel buttonPanel = new JPanel();
+		JButton empTriangleBtn = new JButton("Empty Triangle");
+		ActionListener empTriangleAL = new ActionListener() {
 
-		for (JButton button : buttons) {
-			buttonPanel.add(button);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				canvas.setCurrentShape("Empty Triangle");
+			}
+
+		};
+		empTriangleBtn.addActionListener(empTriangleAL);
+		shapeButtons.add(empTriangleBtn);
+
+		
+		JButton circleBtn = new JButton("Circle");
+		ActionListener circleAL = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				canvas.setCurrentShape("Circle");
+			}
+
+		};
+		circleBtn.addActionListener(circleAL);
+		shapeButtons.add(circleBtn);
+		
+		JButton empCircleBtn = new JButton("Empty Circle");
+		ActionListener empCircleAL = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				canvas.setCurrentShape("Empty Circle");
+			}
+
+		};
+		empCircleBtn.addActionListener(empCircleAL);
+		shapeButtons.add(empCircleBtn);
+
+
+		for (JButton button : colorButtons) {
+			colorButtonPanel.add(button);
 		}
-
-		
-		
-		
-		
-		
-		
 		
 
-		// layout setup
+		for (JButton button : shapeButtons) {
+			shapeButtonPanel.add(button);
+		}
+		
+		
+		
+
+		
+
+
+
+		//Main Panel Layout Setup
 		GroupLayout layout = new GroupLayout(mainPanel);
 		layout.setAutoCreateGaps(true);
 		layout.setAutoCreateContainerGaps(true);
 		mainPanel.setLayout(layout);
 		layout.setHorizontalGroup(layout.createSequentialGroup()
-				.addGroup(layout.createParallelGroup().addComponent(buttonPanel).addComponent(canvas)));
-		layout.setVerticalGroup(layout.createSequentialGroup().addComponent(buttonPanel).addComponent(canvas));
+				.addGroup(layout.createParallelGroup().addComponent(topPanel).addComponent(canvas)));
+		layout.setVerticalGroup(layout.createSequentialGroup().addComponent(topPanel).addComponent(canvas));
 
 		/*
 		 * JPanel p = new JPanel(); p.setPreferredSize(new Dimension(100, 100));

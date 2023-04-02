@@ -23,7 +23,10 @@ public class Canvas extends JPanel { // specialized JPanel
 	public void setColor(Color newColor) {
 		currentColor = newColor;
 	}
-
+	public Color getColor() {
+		return currentColor;
+	}
+	
 	public void setCurrentShape(String newShape) {
 		currentShape = newShape;
 	}
@@ -57,12 +60,27 @@ public class Canvas extends JPanel { // specialized JPanel
 				int currentX = e.getX();
 				int currentY = e.getY();
 				try {
-				if (currentShape.equals("Rectangle")) {
+				switch (currentShape) {
+				case "Rectangle":
 					createRect(currentX, currentY);
-				} else if (currentShape.equals("Empty Rectangle")) {
+					break;
+				case "Empty Rectangle":
 					createEmptyRect(currentX, currentY);
-				} else if (currentShape.equals("Triangle")) {
+					break;
+				case "Triangle":
 					createTriang(currentX,currentY);
+					break;
+				case "Circle":
+					createCirc(currentX,currentY);
+					break;
+				case "Empty Circle":
+					createEmptyCirc(currentX,currentY);
+					break;
+				case "Empty Triangle":
+					createEmptyTriang(currentX, currentY);
+					break;
+				default:
+					throw new RuntimeException("Shape not selected");
 				}
 				} catch (Exception error) {
 					System.out.println("Select a shape. Once we add the brush method, this catch should check for the brush size and accordingly paint.");
@@ -83,13 +101,13 @@ public class Canvas extends JPanel { // specialized JPanel
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				System.out.println("Mouse Exited: " + e.getX());
+//				System.out.println("Mouse Exited: " + e.getX());
 
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				System.out.println("Mouse Entered: " + e.getX()); // entering and exiting the frame.
+//				System.out.println("Mouse Entered: " + e.getX()); // entering and exiting the frame.
 
 			}
 
@@ -136,16 +154,14 @@ public class Canvas extends JPanel { // specialized JPanel
 		}
 		shapes.add(rect);
 	}
-
 	private void createEmptyRect(int newX, int newY) {
 
 		int deltaX = Math.abs(initialX - newX);
 		int deltaY = Math.abs(initialY - newY);
 
-		EmptyRectangle empRect;
+		EmptyRectangle empRect;		
 		if ((newX - initialX) > 0 && (newY - initialY) > 0) { // IV quadrant
 			empRect = new EmptyRectangle(initialX, initialY, deltaY, deltaX, currentColor);
-
 		} else if ((newX - initialX) < 0 && (newY - initialY) < 0) { // II quadrant
 			empRect = new EmptyRectangle(newX, newY, deltaY, deltaX, currentColor);
 		} else if ((newX - initialX) > 0 && (newY - initialY) < 0) { // I quadrant
@@ -159,22 +175,65 @@ public class Canvas extends JPanel { // specialized JPanel
 	}
 	private void createTriang(int newX,int newY) {
 		
+		Triangle triangle = new Triangle(initialX, initialY, newY, newX, currentColor);
+
+		shapes.add(triangle);
+	}
+	
+	private void createEmptyTriang(int newX,int newY) {
+		
+		EmptyTriangle empTriangle = new EmptyTriangle(initialX, initialY, newY, newX, currentColor);
+
+		shapes.add(empTriangle);
+	}
+	
+	
+	private void createCirc(int newX, int newY) {
+
 		int deltaX = Math.abs(initialX - newX);
 		int deltaY = Math.abs(initialY - newY);
 
-		Triangle triangle;
+		Circle circ;		
 		if ((newX - initialX) > 0 && (newY - initialY) > 0) { // IV quadrant
-			triangle = new Triangle(initialX, initialY+deltaY, deltaY, deltaX, currentColor);
-
+			circ = new Circle(initialX, initialY, deltaY, deltaX, currentColor);
 		} else if ((newX - initialX) < 0 && (newY - initialY) < 0) { // II quadrant
-			triangle = new Triangle(newX, newY+deltaY, deltaY, deltaX, currentColor);
+			circ = new Circle(newX, newY, deltaY, deltaX, currentColor);
 		} else if ((newX - initialX) > 0 && (newY - initialY) < 0) { // I quadrant
-			triangle = new Triangle(initialX, initialY, deltaY, deltaX, currentColor);
+			circ = new Circle(initialX, initialY - deltaY, deltaY, deltaX, currentColor);
 		} else if ((newX - initialX) < 0 && (newY - initialY > 0)) { // III quadrant
-			triangle = new Triangle(initialX - deltaX, initialY+deltaY, deltaY, deltaX, currentColor);
+			circ = new Circle(initialX - deltaX, initialY, deltaY, deltaX, currentColor);
 		} else { //invalid shape
-			triangle = new Triangle(initialX, initialY, 0, 0, currentColor);
+			circ = new Circle(initialX, initialY, 0, 0, currentColor);
 		}
-		shapes.add(triangle);
+		shapes.add(circ);
 	}
-}
+	private void createEmptyCirc(int newX, int newY) {
+
+		int deltaX = Math.abs(initialX - newX);
+		int deltaY = Math.abs(initialY - newY);
+
+		EmptyCircle empCirc;		
+		if ((newX - initialX) > 0 && (newY - initialY) > 0) { // IV quadrant
+			empCirc = new EmptyCircle(initialX, initialY, deltaY, deltaX, currentColor);
+		} else if ((newX - initialX) < 0 && (newY - initialY) < 0) { // II quadrant
+			empCirc = new EmptyCircle(newX, newY, deltaY, deltaX, currentColor);
+		} else if ((newX - initialX) > 0 && (newY - initialY) < 0) { // I quadrant
+			empCirc = new EmptyCircle(initialX, initialY - deltaY, deltaY, deltaX, currentColor);
+		} else if ((newX - initialX) < 0 && (newY - initialY > 0)) { // III quadrant
+			empCirc = new EmptyCircle(initialX - deltaX, initialY, deltaY, deltaX, currentColor);
+		} else { //invalid shape
+			empCirc = new EmptyCircle(initialX, initialY, 0, 0, currentColor);
+		}
+		shapes.add(empCirc);
+	}
+	
+
+	private void createLine(int newX, int newY) {
+		Line line;
+	}
+	
+	private void calculateQuadrant(int newX,int newY){
+		
+		
+	}
+	}
