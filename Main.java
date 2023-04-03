@@ -49,8 +49,8 @@ public class Main {
 		shapeButtonPanel.setLayout(gridLayout);
 		
 		// canvas setup
-		int canvasHeight = 615;
-		int canvasWidth = frameWidth-15;
+		int canvasHeight = 615;  //preferred height
+		int canvasWidth = frameWidth-15; //preferred width
 		Canvas canvas = new Canvas(canvasWidth, canvasHeight);
 		canvas.setPreferredSize(new Dimension(canvasWidth, canvasHeight));	
 		canvas.setBackground(Color.WHITE);
@@ -296,7 +296,8 @@ public class Main {
         panel.paint(g2);
         try
         {
-            ImageIO.write(image, "png", new File("snapshot.png"));
+            ImageIO.write(image, "png", new File(System.getProperty("user.dir"),"snapshot.png"));
+            System.out.println(System.getProperty("user.dir"));
             System.out.println("Panel saved as Image.");
         }
         catch(Exception e)
