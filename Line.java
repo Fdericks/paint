@@ -13,7 +13,7 @@ public class Line extends Shape{
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-		g.drawLine(getY(), getX(), getWidth(), getHeight());
+		g.drawLine(getX(), getY(), getHeight(), getWidth());
 	}
 
 }

@@ -51,7 +51,8 @@ public class Main {
 		int canvasWidth = frameWidth-15;
 		Canvas canvas = new Canvas(canvasWidth, canvasHeight);
 		canvas.setPreferredSize(new Dimension(canvasWidth, canvasHeight));	
-		
+		canvas.setBackground(Color.WHITE);
+
 		// define buttons with action listeners
 
 		ArrayList<JButton> colorButtons = new ArrayList<JButton>();
@@ -221,6 +222,18 @@ public class Main {
 		empCircleBtn.addActionListener(empCircleAL);
 		shapeButtons.add(empCircleBtn);
 
+		
+		JButton lineBtn = new JButton("Line");
+		ActionListener lineAL = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				canvas.setCurrentShape("Line");
+			}
+
+		};
+		lineBtn.addActionListener(lineAL);
+		shapeButtons.add(lineBtn);
 
 		for (JButton button : colorButtons) {
 			colorButtonPanel.add(button);

@@ -80,6 +80,9 @@ public class Canvas extends JPanel { // specialized JPanel
 					case "Empty Triangle":
 						createEmptyTriang(currentX, currentY);
 						break;
+					case "Line":
+						createLine(currentX, currentY);
+						break;
 					default:
 						throw new RuntimeException("Shape not selected");
 					}
@@ -126,8 +129,9 @@ public class Canvas extends JPanel { // specialized JPanel
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		g.setColor(Color.LIGHT_GRAY);
-		g.drawRect(0, 0, width, height);
+		repaint();
+		//g.setColor(Color.LIGHT_GRAY);
+		//g.drawRect(0, 0, width, height);
 		
 		for (Shape shape : shapes) {
 			g.setColor(shape.getShapeColor());
@@ -187,7 +191,11 @@ public class Canvas extends JPanel { // specialized JPanel
 	}
 
 	private void createLine(int newX, int newY) {
+		
 		Line line;
+		line = new Line(initialX, initialY, newX, newY, currentColor);
+		shapes.add(line);
+		
 	}
 
 	private int[] calculateQuadrant(int newX, int newY) {
