@@ -1,18 +1,23 @@
 package groupProject.paint.main;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+
 
 public class Main {
 
@@ -23,12 +28,9 @@ public class Main {
 
 		// define JFrame
 		JFrame mainFrame = new JFrame("Paint");
-		mainFrame.setSize(frameWidth, 700);
+		mainFrame.setSize(frameWidth, frameHeight);
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		// define colors
-
 
 
 		// define panels with layouts
@@ -234,6 +236,18 @@ public class Main {
 		};
 		lineBtn.addActionListener(lineAL);
 		shapeButtons.add(lineBtn);
+		
+		JButton saveImageBtn = new JButton("Save Image");
+		ActionListener saveImageAL = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				saveImage(canvas);
+			}
+
+		};
+		saveImageBtn.addActionListener(saveImageAL);
+		topPanel.add(saveImageBtn);
 
 		for (JButton button : colorButtons) {
 			colorButtonPanel.add(button);
@@ -272,4 +286,22 @@ public class Main {
 		mainFrame.setVisible(true);
 	}
 
+    private static void saveImage(Component panel)
+    {
+        Dimension size = panel.getSize();
+        BufferedImage image = new BufferedImage(
+                    size.width, size.height 
+                              , BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = image.createGraphics();
+        panel.paint(g2);
+        try
+        {
+            ImageIO.write(image, "png", new File("snapshot.png"));
+            System.out.println("Panel saved as Image.");
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

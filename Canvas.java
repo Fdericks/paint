@@ -233,4 +233,7 @@ public class Canvas extends JPanel { // specialized JPanel
 		}
 		return shapeSpace;
 	}
+
+
+	
 }
