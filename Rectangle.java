@@ -5,8 +5,9 @@ import java.awt.Graphics;
 
 public class Rectangle extends Shape {
 
-	public Rectangle(int x, int y, int height, int width, Color color) {
-		super(x, y, height, width,color);
+	public Rectangle(int initialX, int initialY, int finalX, int finalY, Color color) {
+		super(initialX,initialY,finalX,finalY,color);
+
 	}
 
 	@Override

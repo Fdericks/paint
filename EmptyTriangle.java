@@ -6,8 +6,9 @@ import java.awt.Polygon;
 
 public class EmptyTriangle extends Shape{
 
-	public EmptyTriangle(int x, int y, int height, int width, Color color) {
-		super(x, y, height, width,color);
+	public EmptyTriangle(int initialX, int initialY, int finalX, int finalY, Color color) {
+		super(initialX,initialY,finalX,finalY,color);
+	//	calculateQuadrant(initialX,initialY,finalX,finalY);
 	}
 
 	@Override

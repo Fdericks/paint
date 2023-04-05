@@ -5,8 +5,8 @@ import java.awt.Graphics;
 
 public class EmptyRectangle extends Shape {
 
-	public EmptyRectangle(int x, int y, int width, int height,Color color) {
-		super(x, y, width, height, color);
+	public EmptyRectangle(int initialX, int initialY, int finalX, int finalY, Color color) {
+		super(initialX,initialY,finalX,finalY,color);
 	}
 
 	@Override

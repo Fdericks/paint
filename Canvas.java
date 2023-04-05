@@ -142,25 +142,19 @@ public class Canvas extends JPanel { // specialized JPanel
 
 	private void createRect(int newX, int newY) {
 
-		int[] shapeSpace = new int[4];
-		shapeSpace = calculateQuadrant(newX, newY);
-		Rectangle rect;
-		rect = new Rectangle(shapeSpace[0], shapeSpace[1], shapeSpace[2], shapeSpace[3], currentColor);
+		Rectangle rect = new Rectangle(initialX, initialY, newX, newY, currentColor);
 		shapes.add(rect);
 	}
 
 	private void createEmptyRect(int newX, int newY) {
 
-		int[] shapeSpace = new int[4];
-		shapeSpace = calculateQuadrant(newX, newY);
-		EmptyRectangle empRect;
-		empRect = new EmptyRectangle(shapeSpace[0], shapeSpace[1], shapeSpace[2], shapeSpace[3], currentColor);
+		EmptyRectangle empRect = new EmptyRectangle(initialX, initialY, newX, newY, currentColor);
 		shapes.add(empRect);
 	}
 
 	private void createTriang(int newX, int newY) {
 
-		Triangle triangle = new Triangle(initialX, initialY, newY, newX, currentColor);
+		Triangle triangle = new Triangle(initialX, initialY, newY, newX, currentColor); // check the new x and new y variable here
 
 		shapes.add(triangle);
 	}
@@ -168,25 +162,18 @@ public class Canvas extends JPanel { // specialized JPanel
 	private void createEmptyTriang(int newX, int newY) {
 
 		EmptyTriangle empTriangle = new EmptyTriangle(initialX, initialY, newY, newX, currentColor);
-
 		shapes.add(empTriangle);
 	}
 
-	private void createCirc(int newX, int newY) {
-
-		int[] shapeSpace = new int[4];
-		shapeSpace = calculateQuadrant(newX, newY);
-		Circle circ;
-		circ = new Circle(shapeSpace[0], shapeSpace[1], shapeSpace[2], shapeSpace[3], currentColor);
+	private void createCirc(int newX, int newY) {		
+		Circle circ = new Circle(initialX,initialY,newX,newY,currentColor);
+	
 		shapes.add(circ);
 	}
 
 	private void createEmptyCirc(int newX, int newY) {
 
-		int[] shapeSpace = new int[4];
-		shapeSpace = calculateQuadrant(newX, newY);
-		EmptyCircle empCirc;
-		empCirc = new EmptyCircle(shapeSpace[0], shapeSpace[1], shapeSpace[2], shapeSpace[3], currentColor);
+		EmptyCircle empCirc = new EmptyCircle(initialX,initialY,newX,newY,currentColor);
 		shapes.add(empCirc);
 	}
 
@@ -198,42 +185,5 @@ public class Canvas extends JPanel { // specialized JPanel
 		
 	}
 
-	private int[] calculateQuadrant(int newX, int newY) {
 
-		int[] shapeSpace = new int[4];
-		int deltaX = Math.abs(initialX - newX);
-		int deltaY = Math.abs(initialY - newY);
-
-		//checks which quadrant the shape was drawn in and puts the proper parameters to draw it.
-		if ((newX - initialX) > 0 && (newY - initialY) > 0) { //IV Quadrant
-			shapeSpace[0] = initialX;
-			shapeSpace[1] = initialY;
-			shapeSpace[2] = deltaY;
-			shapeSpace[3] = deltaX;
-		} else if ((newX - initialX) < 0 && (newY - initialY) < 0) { // II quadrant }
-			shapeSpace[0] = newX;
-			shapeSpace[1] = newY;
-			shapeSpace[2] = deltaY;
-			shapeSpace[3] = deltaX;
-		} else if ((newX - initialX) > 0 && (newY - initialY) < 0) { // I quadrant
-			shapeSpace[0] = initialX;
-			shapeSpace[1] = initialY - deltaY;
-			shapeSpace[2] = deltaY;
-			shapeSpace[3] = deltaX;
-		} else if ((newX - initialX) < 0 && (newY - initialY > 0)) { // III quadrant
-			shapeSpace[0] = initialX - deltaX;
-			shapeSpace[1] = initialY;
-			shapeSpace[2] = deltaY;
-			shapeSpace[3] = deltaX;
-		} else { // invalid shape
-			shapeSpace[0] = initialX - deltaX;
-			shapeSpace[1] = initialY;
-			shapeSpace[2] = 0;
-			shapeSpace[3] = 0;
-		}
-		return shapeSpace;
-	}
-
-
-	
 }
