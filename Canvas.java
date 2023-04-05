@@ -154,14 +154,14 @@ public class Canvas extends JPanel { // specialized JPanel
 
 	private void createTriang(int newX, int newY) {
 
-		Triangle triangle = new Triangle(initialX, initialY, newY, newX, currentColor); // check the new x and new y variable here
+		Triangle triangle = new Triangle(initialX, initialY, newX, newY, currentColor); // check the new x and new y variable here
 
 		shapes.add(triangle);
 	}
 
 	private void createEmptyTriang(int newX, int newY) {
 
-		EmptyTriangle empTriangle = new EmptyTriangle(initialX, initialY, newY, newX, currentColor);
+		EmptyTriangle empTriangle = new EmptyTriangle(initialX, initialY, newX, newY, currentColor);
 		shapes.add(empTriangle);
 	}
 

@@ -21,9 +21,9 @@ public class EmptyTriangle extends Shape{
 		*/
 		
 		Polygon triangle =new Polygon();
-		triangle.addPoint(getX()+(getWidth()-getX())/2, getHeight());
-		triangle.addPoint(getX(), getY());
-		triangle.addPoint(getWidth(), getY());
+		triangle.addPoint(getInitialX()+(getNewX()-getInitialX())/2, getNewY());
+		triangle.addPoint(getInitialX(), getInitialY());
+		triangle.addPoint(getNewX(), getInitialY());
 		
 		g.drawPolygon(triangle);
 	}
