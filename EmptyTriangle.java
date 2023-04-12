@@ -11,7 +11,6 @@ public class EmptyTriangle extends Shape {
 
 	public EmptyTriangle(int initialX, int initialY, int finalX, int finalY, Color color) {
 		super(initialX, initialY, finalX, finalY, color);
-
 	}
 
 	@Override
