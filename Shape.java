@@ -1,4 +1,4 @@
-package groupProject.paint.main;
+
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -15,12 +15,15 @@ public abstract class Shape {
 	private int newX;
 	private int newY;
 	
-	public Shape(int x1, int y1, int x2, int y2, Color color) {
+	public Shape() {
+	}
 
-		this.initialX = x1;
-		this.initialY = y1;
-		this.newX = x2;
-		this.newY = y2;
+	public Shape(int initialX, int initialY, int finalX, int finalY, Color color) {
+
+		this.initialX = initialX;
+		this.initialY = initialY;
+		this.newX = finalX;
+		this.newY = finalY;
 		this.shapeColor = color;
 		calculateQuadrant();
 	}
@@ -31,7 +34,6 @@ public abstract class Shape {
 	public void setShapeColor(Color newShapeColor) {
 		shapeColor = newShapeColor;
 	} 
-	
 	
 	public int getX() {
 		return x;
@@ -64,7 +66,7 @@ public abstract class Shape {
 	public void setWidth(int width) {
 		this.width = width;
 	}
-
+	
 	public int getInitialX() {
 		return initialX;
 	}
@@ -96,6 +98,7 @@ public abstract class Shape {
 	public void setNewY(int newY) {
 		this.newY = newY;
 	}
+
 
 	public abstract void draw(Graphics g);
 	

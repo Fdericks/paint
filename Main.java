@@ -1,4 +1,3 @@
-package groupProject.paint.main;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -156,7 +155,7 @@ public class Main {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				canvas.setCurrentShape("Rectangle");
+				canvas.setCurrentShape(new Rectangle());
 			}
 
 		};
@@ -168,7 +167,7 @@ public class Main {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				canvas.setCurrentShape("Empty Rectangle");
+				canvas.setCurrentShape(new EmptyRectangle());
 			}
 
 		};
@@ -180,7 +179,7 @@ public class Main {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				canvas.setCurrentShape("Triangle");
+				canvas.setCurrentShape(new Triangle());
 			}
 
 		};
@@ -192,7 +191,7 @@ public class Main {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				canvas.setCurrentShape("Empty Triangle");
+				canvas.setCurrentShape(new EmptyTriangle());
 			}
 
 		};
@@ -205,7 +204,7 @@ public class Main {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				canvas.setCurrentShape("Circle");
+				canvas.setCurrentShape(new Circle());
 			}
 
 		};
@@ -217,7 +216,7 @@ public class Main {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				canvas.setCurrentShape("Empty Circle");
+				canvas.setCurrentShape(new EmptyCircle());
 			}
 
 		};
@@ -230,7 +229,7 @@ public class Main {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				canvas.setCurrentShape("Line");
+				canvas.setCurrentShape(new Line());
 			}
 
 		};
@@ -246,6 +245,8 @@ public class Main {
 			}
 
 		};
+		
+		
 		saveImageBtn.addActionListener(saveImageAL);
 		topPanel.add(saveImageBtn);
 
@@ -258,12 +259,6 @@ public class Main {
 			shapeButtonPanel.add(button);
 		}
 		
-		
-		
-
-		
-
-
 
 		//Main Panel Layout Setup
 		GroupLayout layout = new GroupLayout(mainPanel);
@@ -274,26 +269,20 @@ public class Main {
 				.addGroup(layout.createParallelGroup().addComponent(topPanel).addComponent(canvas)));
 		layout.setVerticalGroup(layout.createSequentialGroup().addComponent(topPanel).addComponent(canvas));
 
-		/*
-		 * JPanel p = new JPanel(); p.setPreferredSize(new Dimension(100, 100));
-		 * p.setBackground(Color.BLACK);
-		 * 
-		 * mainPanel.add(p);
-		 */
+		
 
 		mainFrame.add(mainPanel);
 
 		mainFrame.setVisible(true);
 	}
 
-    private static void saveImage(Component panel)
-    {
+    private static void saveImage(Component panel) {
+    	
         Dimension size = panel.getSize();
-        BufferedImage image = new BufferedImage(
-                    size.width, size.height 
-                              , BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = image.createGraphics();
         panel.paint(g2);
+        
         try
         {
             ImageIO.write(image, "png", new File(System.getProperty("user.dir"),"snapshot.png"));
