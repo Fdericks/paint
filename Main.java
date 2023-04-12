@@ -240,6 +240,19 @@ public class Main {
 			shapeButtonPanel.add(button);
 		}
 
+		JButton saveImageBtn = new JButton("Save Image");
+		ActionListener saveImageAL = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				saveImage(canvas);
+			}
+
+		};
+
+		saveImageBtn.addActionListener(saveImageAL);
+		topPanel.add(saveImageBtn);
+
 		// Main Panel Layout Setup
 		GroupLayout layout = new GroupLayout(mainPanel);
 		layout.setAutoCreateGaps(true);
@@ -248,13 +261,6 @@ public class Main {
 		layout.setHorizontalGroup(layout.createSequentialGroup()
 				.addGroup(layout.createParallelGroup().addComponent(topPanel).addComponent(canvas)));
 		layout.setVerticalGroup(layout.createSequentialGroup().addComponent(topPanel).addComponent(canvas));
-
-		/*
-		 * JPanel p = new JPanel(); p.setPreferredSize(new Dimension(100, 100));
-		 * p.setBackground(Color.BLACK);
-		 * 
-		 * mainPanel.add(p);
-		 */
 
 		mainFrame.add(mainPanel);
 

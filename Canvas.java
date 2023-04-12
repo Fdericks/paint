@@ -38,20 +38,6 @@ public class Canvas extends JPanel { // specialized JPanel
 		this.width = width;
 		this.height = height;
 
-		/*
-		 * Rectangle r; Rectangle r1; Rectangle r2; Rectangle r3;
-		 * 
-		 * r = new Rectangle(10, 10, 50, 50); shapes.add(r);
-		 * 
-		 * r1 = new Rectangle(20, 20, 50, 50); shapes.add(r1); r2 = new Rectangle(10,
-		 * 50, 40, 70); shapes.add(r2); r3 = new Rectangle(30, 100, 20, 10);
-		 * shapes.add(r3);
-		 * 
-		 * Circle c1 = new Circle(20, 30, 20, 20); Circle c2 = new Circle(200, 200, 30,
-		 * 30); Circle c3 = new Circle(400, 410, 20, 20); shapes.add(c1);
-		 * shapes.add(c2); shapes.add(c3);
-		 */
-
 		addMouseListener(new MouseListener() {
 
 			@Override
@@ -83,10 +69,6 @@ public class Canvas extends JPanel { // specialized JPanel
 							"Select a shape. Once we add the brush method, this catch should check for the brush size and accordingly paint.");
 				}
 				repaint(); // calls paint component again
-
-//				else if ((currentX-initialX)<0) && (currentY-initialY)>0 {
-//					
-//				}
 			}
 
 			@Override
@@ -122,8 +104,6 @@ public class Canvas extends JPanel { // specialized JPanel
 	@Override
 	protected void paintComponent(Graphics g) {
 		repaint();
-		// g.setColor(Color.LIGHT_GRAY);
-		// g.drawRect(0, 0, width, height);
 
 		for (Shape shape : shapes) {
 			g.setColor(shape.getShapeColor());
@@ -146,9 +126,7 @@ public class Canvas extends JPanel { // specialized JPanel
 
 	private void createTriangle(int newX, int newY) {
 
-		Triangle triangle = new Triangle(initialX, initialY, newX, newY, currentColor); // check the new x and new y
-																						// variable here
-
+		Triangle triangle = new Triangle(initialX, initialY, newX, newY, currentColor);
 		shapes.add(triangle);
 	}
 
