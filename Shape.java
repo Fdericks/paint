@@ -104,30 +104,22 @@ public abstract class Shape {
 	
 	public void calculateQuadrant() {
 
-		int deltaX = Math.abs(initialX - newX);
-		int deltaY = Math.abs(initialY - newY);
+		width = Math.abs(initialX - newX);
+		height = Math.abs(initialY - newY);
 
 		//checks which quadrant the shape was drawn in and puts the proper parameters to draw it.
 		if ((newX - initialX) > 0 && (newY - initialY) > 0) { //IV Quadrant
 			x = initialX;
 			y = initialY;
-			height = deltaY;
-			width = deltaX;
 		} else if ((newX - initialX) < 0 && (newY - initialY) < 0) { // II quadrant }
 			x = newX;
 			y = newY;
-			height = deltaY;
-			width = deltaX;
 		} else if ((newX - initialX) > 0 && (newY - initialY) < 0) { // I quadrant
 			x = initialX;
-			y = initialY - deltaY;
-			height = deltaY;
-			width = deltaX;
+			y = initialY - height;
 		} else if ((newX - initialX) < 0 && (newY - initialY > 0)) { // III quadrant
-			x = initialX - deltaX;
+			x = initialX - width;
 			y = initialY;
-			height = deltaY;
-			width = deltaX;
 		} else { // invalid shape
 			x = initialX;
 			y = initialY;
