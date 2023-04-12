@@ -1,4 +1,4 @@
-
+package groupProject.paint.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -38,6 +38,20 @@ public class Canvas extends JPanel { // specialized JPanel
 		this.width = width;
 		this.height = height;
 
+		/*
+		 * Rectangle r; Rectangle r1; Rectangle r2; Rectangle r3;
+		 * 
+		 * r = new Rectangle(10, 10, 50, 50); shapes.add(r);
+		 * 
+		 * r1 = new Rectangle(20, 20, 50, 50); shapes.add(r1); r2 = new Rectangle(10,
+		 * 50, 40, 70); shapes.add(r2); r3 = new Rectangle(30, 100, 20, 10);
+		 * shapes.add(r3);
+		 * 
+		 * Circle c1 = new Circle(20, 30, 20, 20); Circle c2 = new Circle(200, 200, 30,
+		 * 30); Circle c3 = new Circle(400, 410, 20, 20); shapes.add(c1);
+		 * shapes.add(c2); shapes.add(c3);
+		 */
+
 		addMouseListener(new MouseListener() {
 
 			@Override
@@ -48,28 +62,31 @@ public class Canvas extends JPanel { // specialized JPanel
 				int currentY = e.getY();
 				try {
 					if (currentShape instanceof Rectangle) {
-						createRectangle(currentX,currentY);
+						createRectangle(currentX, currentY);
 					} else if (currentShape instanceof EmptyRectangle) {
 						createEmptyRectangle(currentX, currentY);
 					} else if (currentShape instanceof Triangle) {
 						createTriangle(currentX, currentY);
 					} else if (currentShape instanceof EmptyTriangle) {
 						createEmptyTriangle(currentX, currentY);
-					} else if(currentShape instanceof Circle) {
+					} else if (currentShape instanceof Circle) {
 						createCircle(currentX, currentY);
-					} else if(currentShape instanceof EmptyCircle) {
+					} else if (currentShape instanceof EmptyCircle) {
 						createEmptyCircle(currentX, currentY);
 					} else if (currentShape instanceof Line) {
 						createLine(currentX, currentY);
 					} else {
 						throw new RuntimeException("Shape not selected");
 					}
+				} catch (Exception error) {
+					System.out.println(
+							"Select a shape. Once we add the brush method, this catch should check for the brush size and accordingly paint.");
 				}
-					catch (Exception error) {
-						System.out.println(
-								"Select a shape. Once we add the brush method, this catch should check for the brush size and accordingly paint.");
-					}
-					repaint();
+				repaint(); // calls paint component again
+
+//				else if ((currentX-initialX)<0) && (currentY-initialY)>0 {
+//					
+//				}
 			}
 
 			@Override
@@ -94,7 +111,7 @@ public class Canvas extends JPanel { // specialized JPanel
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Mouse Clicked: " + e.getX());
-				Circle stroke = new Circle(e.getX() - 5, e.getY() - 5, 10, 10, currentColor);
+				Circle stroke = new Circle(e.getX() - 3, e.getY() - 5, e.getX() + 3, e.getY() + 1, currentColor);
 				shapes.add(stroke);
 				repaint();
 			}
@@ -104,9 +121,10 @@ public class Canvas extends JPanel { // specialized JPanel
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
 		repaint();
-		
+		// g.setColor(Color.LIGHT_GRAY);
+		// g.drawRect(0, 0, width, height);
+
 		for (Shape shape : shapes) {
 			g.setColor(shape.getShapeColor());
 			shape.draw(g);
@@ -128,37 +146,36 @@ public class Canvas extends JPanel { // specialized JPanel
 
 	private void createTriangle(int newX, int newY) {
 
-		Triangle triangle = new Triangle(initialX, initialY, newY, newX, currentColor);
+		Triangle triangle = new Triangle(initialX, initialY, newX, newY, currentColor); // check the new x and new y
+																						// variable here
+
 		shapes.add(triangle);
 	}
 
 	private void createEmptyTriangle(int newX, int newY) {
 
-		EmptyTriangle empTriangle = new EmptyTriangle(initialX, initialY, newY, newX, currentColor);
+		EmptyTriangle empTriangle = new EmptyTriangle(initialX, initialY, newX, newY, currentColor);
 		shapes.add(empTriangle);
 	}
 
 	private void createCircle(int newX, int newY) {
+		Circle circ = new Circle(initialX, initialY, newX, newY, currentColor);
 
-		Circle circ = new Circle(initialX,initialY, newX, newY, currentColor);
 		shapes.add(circ);
 	}
 
 	private void createEmptyCircle(int newX, int newY) {
 
-		
-		EmptyCircle empCirc = new EmptyCircle(initialX,initialY,newX,newY, currentColor);
+		EmptyCircle empCirc = new EmptyCircle(initialX, initialY, newX, newY, currentColor);
 		shapes.add(empCirc);
 	}
 
 	private void createLine(int newX, int newY) {
-		
-		Line line = new Line(initialX, initialY, newX, newY, currentColor);
+
+		Line line;
+		line = new Line(initialX, initialY, newX, newY, currentColor);
 		shapes.add(line);
-		
+
 	}
 
-	
-
-	
 }

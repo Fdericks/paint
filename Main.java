@@ -1,3 +1,4 @@
+package groupProject.paint.main;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -14,9 +15,12 @@ import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
+import javax.swing.JTextField;
 
 public class Main {
 
@@ -31,27 +35,26 @@ public class Main {
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
 		// define panels with layouts
 
 		JPanel mainPanel = new JPanel();
-		
+
 		// Top Panel layout setup
 		JPanel shapeButtonPanel = new JPanel();
 		JPanel colorButtonPanel = new JPanel();
 		JPanel topPanel = new JPanel();
 		topPanel.add(colorButtonPanel);
 		topPanel.add(shapeButtonPanel);
-		
-		GridLayout gridLayout = new GridLayout(2,0); //create grid of two rows and as many columns as necessary.
+
+		GridLayout gridLayout = new GridLayout(2, 0); // create grid of two rows and as many columns as necessary.
 		colorButtonPanel.setLayout(gridLayout);
 		shapeButtonPanel.setLayout(gridLayout);
-		
+
 		// canvas setup
-		int canvasHeight = 615;  //preferred height
-		int canvasWidth = frameWidth-15; //preferred width
+		int canvasHeight = 615; // preferred height
+		int canvasWidth = frameWidth - 15; // preferred width
 		Canvas canvas = new Canvas(canvasWidth, canvasHeight);
-		canvas.setPreferredSize(new Dimension(canvasWidth, canvasHeight));	
+		canvas.setPreferredSize(new Dimension(canvasWidth, canvasHeight));
 		canvas.setBackground(Color.WHITE);
 
 		// define buttons with action listeners
@@ -59,8 +62,7 @@ public class Main {
 		ArrayList<JButton> colorButtons = new ArrayList<JButton>();
 		ArrayList<JButton> shapeButtons = new ArrayList<JButton>();
 
-		
-		//color buttons
+		// color buttons
 		JButton blackBtn = new JButton("Black");
 		ActionListener blackAL = new ActionListener() {
 
@@ -71,7 +73,7 @@ public class Main {
 		};
 		blackBtn.addActionListener(blackAL);
 		colorButtons.add(blackBtn);
-				
+
 		JButton redBtn = new JButton("Red");
 		ActionListener redAL = new ActionListener() {
 
@@ -82,8 +84,7 @@ public class Main {
 		};
 		redBtn.addActionListener(redAL);
 		colorButtons.add(redBtn);
-		
-		
+
 		JButton oranBtn = new JButton("Orange");
 		ActionListener oranAL = new ActionListener() {
 
@@ -94,8 +95,7 @@ public class Main {
 		};
 		oranBtn.addActionListener(oranAL);
 		colorButtons.add(oranBtn);
-		
-		
+
 		JButton yellowBtn = new JButton("Yellow");
 		ActionListener yellowAL = new ActionListener() {
 
@@ -106,8 +106,7 @@ public class Main {
 		};
 		yellowBtn.addActionListener(yellowAL);
 		colorButtons.add(yellowBtn);
-		
-		
+
 		JButton greenBtn = new JButton("Green");
 		ActionListener greenAL = new ActionListener() {
 
@@ -129,7 +128,7 @@ public class Main {
 		};
 		blueBtn.addActionListener(blueAL);
 		colorButtons.add(blueBtn);
-		
+
 		JButton whiteBtn = new JButton("White");
 		ActionListener whiteAL = new ActionListener() {
 
@@ -140,7 +139,7 @@ public class Main {
 		};
 		whiteBtn.addActionListener(whiteAL);
 		colorButtons.add(whiteBtn);
-			
+
 		JButton colorButton = new JButton("Color");
 		colorButton.addActionListener(e -> {
 			Color color = JColorChooser.showDialog(colorButton, "Select Color", canvas.getColor());
@@ -148,8 +147,7 @@ public class Main {
 		});
 		colorButtons.add(colorButton);
 
-		
-		//shape buttons
+		// shape buttons
 		JButton rectBtn = new JButton("Rectangle");
 		ActionListener rectAL = new ActionListener() {
 
@@ -161,7 +159,7 @@ public class Main {
 		};
 		rectBtn.addActionListener(rectAL);
 		shapeButtons.add(rectBtn);
-		
+
 		JButton emptyRectBtn = new JButton("Empty Rectangle");
 		ActionListener emptyRectAL = new ActionListener() {
 
@@ -173,7 +171,7 @@ public class Main {
 		};
 		emptyRectBtn.addActionListener(emptyRectAL);
 		shapeButtons.add(emptyRectBtn);
-		
+
 		JButton triangleBtn = new JButton("Triangle");
 		ActionListener triangleAL = new ActionListener() {
 
@@ -185,7 +183,7 @@ public class Main {
 		};
 		triangleBtn.addActionListener(triangleAL);
 		shapeButtons.add(triangleBtn);
-		
+
 		JButton empTriangleBtn = new JButton("Empty Triangle");
 		ActionListener empTriangleAL = new ActionListener() {
 
@@ -198,7 +196,6 @@ public class Main {
 		empTriangleBtn.addActionListener(empTriangleAL);
 		shapeButtons.add(empTriangleBtn);
 
-		
 		JButton circleBtn = new JButton("Circle");
 		ActionListener circleAL = new ActionListener() {
 
@@ -210,7 +207,7 @@ public class Main {
 		};
 		circleBtn.addActionListener(circleAL);
 		shapeButtons.add(circleBtn);
-		
+
 		JButton empCircleBtn = new JButton("Empty Circle");
 		ActionListener empCircleAL = new ActionListener() {
 
@@ -223,7 +220,6 @@ public class Main {
 		empCircleBtn.addActionListener(empCircleAL);
 		shapeButtons.add(empCircleBtn);
 
-		
 		JButton lineBtn = new JButton("Line");
 		ActionListener lineAL = new ActionListener() {
 
@@ -235,32 +231,16 @@ public class Main {
 		};
 		lineBtn.addActionListener(lineAL);
 		shapeButtons.add(lineBtn);
-		
-		JButton saveImageBtn = new JButton("Save Image");
-		ActionListener saveImageAL = new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				saveImage(canvas);
-			}
-
-		};
-		
-		
-		saveImageBtn.addActionListener(saveImageAL);
-		topPanel.add(saveImageBtn);
 
 		for (JButton button : colorButtons) {
 			colorButtonPanel.add(button);
 		}
-		
 
 		for (JButton button : shapeButtons) {
 			shapeButtonPanel.add(button);
 		}
-		
 
-		//Main Panel Layout Setup
+		// Main Panel Layout Setup
 		GroupLayout layout = new GroupLayout(mainPanel);
 		layout.setAutoCreateGaps(true);
 		layout.setAutoCreateContainerGaps(true);
@@ -269,29 +249,47 @@ public class Main {
 				.addGroup(layout.createParallelGroup().addComponent(topPanel).addComponent(canvas)));
 		layout.setVerticalGroup(layout.createSequentialGroup().addComponent(topPanel).addComponent(canvas));
 
-		
+		/*
+		 * JPanel p = new JPanel(); p.setPreferredSize(new Dimension(100, 100));
+		 * p.setBackground(Color.BLACK);
+		 * 
+		 * mainPanel.add(p);
+		 */
 
 		mainFrame.add(mainPanel);
 
 		mainFrame.setVisible(true);
 	}
 
-    private static void saveImage(Component panel) {
-    	
-        Dimension size = panel.getSize();
-        BufferedImage image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2 = image.createGraphics();
-        panel.paint(g2);
-        
-        try
-        {
-            ImageIO.write(image, "png", new File(System.getProperty("user.dir"),"snapshot.png"));
-            System.out.println(System.getProperty("user.dir"));
-            System.out.println("Panel saved as Image.");
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
+	private static void saveImage(Component panel) {
+		// Create Panel to go inside Input Dialog
+		String fileName;
+		String fileExtension;
+		JPanel filePanel = new JPanel();
+		String[] extensionStr = new String[2];
+		extensionStr[0] = "png";
+		extensionStr[1] = "jpeg";
+
+		JComboBox<String> extension = new JComboBox<String>(extensionStr); // drop-down menu
+		extension.setVisible(true);
+		filePanel.add(new JLabel("Input file name and select file type."));
+		filePanel.add(extension);
+
+		fileName = JOptionPane.showInputDialog(panel, filePanel); // get values from input dialog
+		fileExtension = (String) extension.getSelectedItem();
+
+		// create graphics to be saved
+		Dimension size = panel.getSize();
+		BufferedImage image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_4BYTE_ABGR);
+		Graphics2D g2 = image.createGraphics();
+		panel.paint(g2);
+		try {
+			ImageIO.write(image, fileExtension,
+					new File(System.getProperty("user.dir"), fileName + "." + fileExtension));
+			System.out.println(System.getProperty("user.dir"));
+			System.out.println("Panel saved as Image.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

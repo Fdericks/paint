@@ -1,4 +1,4 @@
-
+package groupProject.paint.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,7 +14,7 @@ public abstract class Shape {
 	private int initialY;
 	private int newX;
 	private int newY;
-	
+
 	public Shape() {
 	}
 
@@ -27,14 +27,15 @@ public abstract class Shape {
 		this.shapeColor = color;
 		calculateQuadrant();
 	}
-	
+
 	public Color getShapeColor() {
 		return shapeColor;
 	}
+
 	public void setShapeColor(Color newShapeColor) {
 		shapeColor = newShapeColor;
-	} 
-	
+	}
+
 	public int getX() {
 		return x;
 	}
@@ -66,7 +67,7 @@ public abstract class Shape {
 	public void setWidth(int width) {
 		this.width = width;
 	}
-	
+
 	public int getInitialX() {
 		return initialX;
 	}
@@ -99,16 +100,16 @@ public abstract class Shape {
 		this.newY = newY;
 	}
 
-
 	public abstract void draw(Graphics g);
-	
+
 	public void calculateQuadrant() {
 
 		width = Math.abs(initialX - newX);
 		height = Math.abs(initialY - newY);
 
-		//checks which quadrant the shape was drawn in and puts the proper parameters to draw it.
-		if ((newX - initialX) > 0 && (newY - initialY) > 0) { //IV Quadrant
+		// checks which quadrant the shape was drawn in and puts the proper parameters
+		// to draw it.
+		if ((newX - initialX) > 0 && (newY - initialY) > 0) { // IV Quadrant
 			x = initialX;
 			y = initialY;
 		} else if ((newX - initialX) < 0 && (newY - initialY) < 0) { // II quadrant }
