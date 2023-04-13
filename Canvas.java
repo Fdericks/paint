@@ -22,6 +22,7 @@ public class Canvas extends JPanel { // specialized JPanel
 
 	private ArrayList<Point> points = new ArrayList<Point>();
 	private ArrayList<Shape> shapes = new ArrayList<Shape>();
+	private Brush currentBrush;
 
 	public void setColor(Color newColor) {
 		currentColor = newColor;
@@ -81,7 +82,7 @@ public class Canvas extends JPanel { // specialized JPanel
 			public void mousePressed(MouseEvent e) {
 				if (currentShape == null) {
 					points.add(e.getPoint());
-					useBrush(points);
+					createBrush(points);
 					repaint();
 				
 				}
@@ -102,10 +103,10 @@ public class Canvas extends JPanel { // specialized JPanel
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Mouse Clicked: " + e.getPoint());
-				Circle stroke = new Circle(e.getX() - 3, e.getY() - 5, e.getX() + 3, e.getY() + 1, currentColor);
-				shapes.add(stroke);
-				repaint();
+//				System.out.println("Mouse Clicked: " + e.getPoint());
+//				Circle stroke = new Circle(e.getX() - 3, e.getY() - 5, e.getX() + 3, e.getY() + 1, currentColor);
+//				shapes.add(stroke);
+//				repaint();
 
 			}
 		});
@@ -180,9 +181,14 @@ public class Canvas extends JPanel { // specialized JPanel
 		shapes.add(line);
 
 	}
-	private void useBrush(ArrayList<Point> points) {
+	
+	private void createBrush(ArrayList<Point> points) {
 		Brush brush = new Brush(points,currentColor,currentBrushWidth);
 		shapes.add(brush);
+		currentBrush = brush;
+	}
+	private void useBrush(ArrayList<Point> points) {
+		currentBrush.setPoints(points);
 	}
 
 }

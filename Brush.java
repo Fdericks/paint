@@ -45,4 +45,8 @@ public class Brush extends Shape {
 		this.brushWidth = brushWidth;
 	}
 	
+	public void setPoints(ArrayList<Point> points) {
+		this.points = points;
+	}
+	
 }
