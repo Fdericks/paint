@@ -2,16 +2,15 @@ package groupProject.paint.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 public class Canvas extends JPanel { // specialized JPanel
-
-	private int width;
-	private int height;
 
 	private int initialX;
 	private int initialY;
@@ -19,6 +18,10 @@ public class Canvas extends JPanel { // specialized JPanel
 	private Color currentColor = Color.BLACK;
 
 	private Shape currentShape;
+	private float currentBrushWidth = 10f; //15 is default
+
+	private ArrayList<Point> points = new ArrayList<Point>();
+	private ArrayList<Shape> shapes = new ArrayList<Shape>();
 
 	public void setColor(Color newColor) {
 		currentColor = newColor;
@@ -31,18 +34,19 @@ public class Canvas extends JPanel { // specialized JPanel
 	public void setCurrentShape(Shape newShape) {
 		currentShape = newShape;
 	}
+	
+	public void setBrushWidth(float width) {
+		currentBrushWidth = width;
+	}
 
-	private ArrayList<Shape> shapes = new ArrayList<Shape>();
 
-	public Canvas(int width, int height) {
-		this.width = width;
-		this.height = height;
+
+	public Canvas() {
 
 		addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				System.out.println("Mouse Released: " + e.getX());
 
 				int currentX = e.getX();
 				int currentY = e.getY();
@@ -65,37 +69,60 @@ public class Canvas extends JPanel { // specialized JPanel
 						throw new RuntimeException("Shape not selected");
 					}
 				} catch (Exception error) {
-					System.out.println(
-							"Select a shape. Once we add the brush method, this catch should check for the brush size and accordingly paint.");
+//					System.out.println(
+//							"Select a shape. Once we add the brush method, this catch should check for the brush size and accordingly paint.");
+
+						points = new ArrayList<Point>();
 				}
 				repaint(); // calls paint component again
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				System.out.println("Mouse Pressed: " + e.getX());
-				initialX = e.getX();
-				initialY = e.getY();
+				if (currentShape == null) {
+					points.add(e.getPoint());
+					useBrush(points);
+					repaint();
+				
+				}
+				else {
+					initialX = e.getX();
+					initialY = e.getY();
+				}
+
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-//				System.out.println("Mouse Exited: " + e.getX());
-
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-//				System.out.println("Mouse Entered: " + e.getX()); // entering and exiting the frame.
-
 			}
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Mouse Clicked: " + e.getX());
+				System.out.println("Mouse Clicked: " + e.getPoint());
 				Circle stroke = new Circle(e.getX() - 3, e.getY() - 5, e.getX() + 3, e.getY() + 1, currentColor);
 				shapes.add(stroke);
 				repaint();
+
+			}
+		});
+		addMouseMotionListener(new MouseMotionListener() {
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				if (currentShape == null) {
+					points.add(e.getPoint());
+					useBrush(points);
+					repaint();
+				}
+
 			}
 		});
 
@@ -104,12 +131,10 @@ public class Canvas extends JPanel { // specialized JPanel
 	@Override
 	protected void paintComponent(Graphics g) {
 		repaint();
-
 		for (Shape shape : shapes) {
 			g.setColor(shape.getShapeColor());
 			shape.draw(g);
 		}
-
 	}
 
 	private void createRectangle(int newX, int newY) {
@@ -154,6 +179,10 @@ public class Canvas extends JPanel { // specialized JPanel
 		line = new Line(initialX, initialY, newX, newY, currentColor);
 		shapes.add(line);
 
+	}
+	private void useBrush(ArrayList<Point> points) {
+		Brush brush = new Brush(points,currentColor,currentBrushWidth);
+		shapes.add(brush);
 	}
 
 }

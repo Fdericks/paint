@@ -53,7 +53,7 @@ public class Main {
 		// canvas setup
 		int canvasHeight = 615; // preferred height
 		int canvasWidth = frameWidth - 15; // preferred width
-		Canvas canvas = new Canvas(canvasWidth, canvasHeight);
+		Canvas canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(canvasWidth, canvasHeight));
 		canvas.setBackground(Color.WHITE);
 
@@ -227,10 +227,43 @@ public class Main {
 			public void actionPerformed(ActionEvent e) {
 				canvas.setCurrentShape(new Line());
 			}
-
 		};
 		lineBtn.addActionListener(lineAL);
 		shapeButtons.add(lineBtn);
+		
+		JButton brushBtn = new JButton("Brush");
+		ActionListener brushAL = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JPanel brushPanel = new JPanel();
+				String[] sizeStr = new String[8];
+				sizeStr[0] = "1";
+				sizeStr[1] = "2";
+				sizeStr[2] = "5";
+				sizeStr[3] = "8";
+				sizeStr[4] = "10";
+				sizeStr[5] = "12";
+				sizeStr[6] = "15";
+				sizeStr[7] = "20";
+				
+				JComboBox<String> size = new JComboBox<String>(sizeStr); // drop-down menu
+				size.setVisible(true);
+				
+				brushPanel.add(new JLabel("Select Brush Size"));
+				brushPanel.add(size);
+				
+				canvas.setCurrentShape(null);
+				JOptionPane.showMessageDialog(canvas, brushPanel);
+				int index = size.getSelectedIndex();
+				float brushWidth = Float.parseFloat(sizeStr[index]);
+				System.out.println(brushWidth);
+				canvas.setBrushWidth(brushWidth);
+			}
+		};
+		
+		brushBtn.addActionListener(brushAL);
+		shapeButtons.add(brushBtn);
 
 		for (JButton button : colorButtons) {
 			colorButtonPanel.add(button);
@@ -295,7 +328,8 @@ public class Main {
 			System.out.println(System.getProperty("user.dir"));
 			System.out.println("Panel saved as Image.");
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(panel, "Error: Image not saved.");
+//			e.printStackTrace();
 		}
 	}
 }
