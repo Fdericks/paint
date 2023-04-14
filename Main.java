@@ -26,8 +26,8 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		int frameWidth = 700; // pixel num.
-		int frameHeight = 700;
+		int frameWidth = 1280; // default mainFrame size
+		int frameHeight = 720;
 
 		// define JFrame
 		JFrame mainFrame = new JFrame("Paint");
@@ -35,7 +35,7 @@ public class Main {
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// define panels with layouts
+		// define panels to be used in mainFrame
 
 		JPanel mainPanel = new JPanel();
 
@@ -45,19 +45,20 @@ public class Main {
 		JPanel topPanel = new JPanel();
 		topPanel.add(colorButtonPanel);
 		topPanel.add(shapeButtonPanel);
-
+		
+		//button panels layout setup.
 		GridLayout gridLayout = new GridLayout(2, 0); // create grid of two rows and as many columns as necessary.
 		colorButtonPanel.setLayout(gridLayout);
 		shapeButtonPanel.setLayout(gridLayout);
 
 		// canvas setup
-		int canvasHeight = 615; // preferred height
-		int canvasWidth = frameWidth - 15; // preferred width
+		int canvasHeight = frameHeight; // preferred height
+		int canvasWidth = frameWidth - 15; // preferred width to avoid going into borders.
 		Canvas canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(canvasWidth, canvasHeight));
 		canvas.setBackground(Color.WHITE);
 
-		// define buttons with action listeners
+		// define buttons lists with action listeners
 
 		ArrayList<JButton> colorButtons = new ArrayList<JButton>();
 		ArrayList<JButton> shapeButtons = new ArrayList<JButton>();
@@ -65,7 +66,6 @@ public class Main {
 		// color buttons
 		JButton blackBtn = new JButton("Black");
 		ActionListener blackAL = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				canvas.setColor(Color.BLACK);
@@ -76,7 +76,6 @@ public class Main {
 
 		JButton redBtn = new JButton("Red");
 		ActionListener redAL = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				canvas.setColor(Color.RED);
@@ -87,7 +86,6 @@ public class Main {
 
 		JButton oranBtn = new JButton("Orange");
 		ActionListener oranAL = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				canvas.setColor(Color.ORANGE);
@@ -98,7 +96,6 @@ public class Main {
 
 		JButton yellowBtn = new JButton("Yellow");
 		ActionListener yellowAL = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				canvas.setColor(Color.YELLOW);
@@ -109,7 +106,6 @@ public class Main {
 
 		JButton greenBtn = new JButton("Green");
 		ActionListener greenAL = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				canvas.setColor(Color.GREEN);
@@ -120,7 +116,6 @@ public class Main {
 
 		JButton blueBtn = new JButton("Blue");
 		ActionListener blueAL = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				canvas.setColor(Color.BLUE);
@@ -131,7 +126,6 @@ public class Main {
 
 		JButton whiteBtn = new JButton("White");
 		ActionListener whiteAL = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				canvas.setColor(Color.WHITE);
@@ -141,16 +135,19 @@ public class Main {
 		colorButtons.add(whiteBtn);
 
 		JButton colorButton = new JButton("Color");
-		colorButton.addActionListener(e -> {
-			Color color = JColorChooser.showDialog(colorButton, "Select Color", canvas.getColor());
-			canvas.setColor(color);
-		});
+		ActionListener colorAL = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Color color = JColorChooser.showDialog(colorButton, "Select Color", canvas.getColor());
+				canvas.setColor(color);
+			}
+		}; 
+		colorButton.addActionListener(colorAL);
 		colorButtons.add(colorButton);
 
 		// shape buttons
 		JButton rectBtn = new JButton("Rectangle");
 		ActionListener rectAL = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				canvas.setCurrentShape(new Rectangle());
@@ -162,7 +159,6 @@ public class Main {
 
 		JButton emptyRectBtn = new JButton("Empty Rectangle");
 		ActionListener emptyRectAL = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				canvas.setCurrentShape(new EmptyRectangle());
@@ -174,7 +170,6 @@ public class Main {
 
 		JButton triangleBtn = new JButton("Triangle");
 		ActionListener triangleAL = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				canvas.setCurrentShape(new Triangle());
@@ -186,7 +181,6 @@ public class Main {
 
 		JButton empTriangleBtn = new JButton("Empty Triangle");
 		ActionListener empTriangleAL = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				canvas.setCurrentShape(new EmptyTriangle());
@@ -198,7 +192,6 @@ public class Main {
 
 		JButton circleBtn = new JButton("Circle");
 		ActionListener circleAL = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				canvas.setCurrentShape(new Circle());
@@ -210,7 +203,6 @@ public class Main {
 
 		JButton empCircleBtn = new JButton("Empty Circle");
 		ActionListener empCircleAL = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				canvas.setCurrentShape(new EmptyCircle());
@@ -222,7 +214,6 @@ public class Main {
 
 		JButton lineBtn = new JButton("Line");
 		ActionListener lineAL = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				canvas.setCurrentShape(new Line());
@@ -231,13 +222,14 @@ public class Main {
 		lineBtn.addActionListener(lineAL);
 		shapeButtons.add(lineBtn);
 		
+		//brushBtn allows the user to select the brush width by displaying a MessageDialog with a ComboBox.
 		JButton brushBtn = new JButton("Brush");
 		ActionListener brushAL = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//create panel for MessageDialog
 				JPanel brushPanel = new JPanel();
-				String[] sizeStr = new String[8];
+				String[] sizeStr = new String[8]; //array for comboBox with different brush size options.
 				sizeStr[0] = "1";
 				sizeStr[1] = "2";
 				sizeStr[2] = "5";
@@ -253,15 +245,13 @@ public class Main {
 				brushPanel.add(new JLabel("Select Brush Size"));
 				brushPanel.add(size);
 				
-				canvas.setCurrentShape(null);
+				canvas.setCurrentShape(null); //null current shape means a brush is being used.
 				JOptionPane.showMessageDialog(canvas, brushPanel);
-				int index = size.getSelectedIndex();
+				int index = size.getSelectedIndex(); //selected comboBox item index
 				float brushWidth = Float.parseFloat(sizeStr[index]);
-				System.out.println(brushWidth);
 				canvas.setBrushWidth(brushWidth);
 			}
 		};
-		
 		brushBtn.addActionListener(brushAL);
 		shapeButtons.add(brushBtn);
 
@@ -273,30 +263,28 @@ public class Main {
 			shapeButtonPanel.add(button);
 		}
 
+		//Save Image Button
 		JButton saveImageBtn = new JButton("Save Image");
 		ActionListener saveImageAL = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				saveImage(canvas);
 			}
-
 		};
-
 		saveImageBtn.addActionListener(saveImageAL);
 		topPanel.add(saveImageBtn);
 
+		//Once buttons are setup now the main panel be setup.
 		// Main Panel Layout Setup
 		GroupLayout layout = new GroupLayout(mainPanel);
 		layout.setAutoCreateGaps(true);
 		layout.setAutoCreateContainerGaps(true);
 		mainPanel.setLayout(layout);
 		layout.setHorizontalGroup(layout.createSequentialGroup()
-				.addGroup(layout.createParallelGroup().addComponent(topPanel).addComponent(canvas)));
-		layout.setVerticalGroup(layout.createSequentialGroup().addComponent(topPanel).addComponent(canvas));
+				.addGroup(layout.createParallelGroup().addComponent(topPanel).addComponent(canvas))); //creates a group of the top panel and canvas in parallel for the horizontal.
+		layout.setVerticalGroup(layout.createSequentialGroup().addComponent(topPanel).addComponent(canvas)); //creates a group of the top panel and canvas in vertical.
 
 		mainFrame.add(mainPanel);
-
 		mainFrame.setVisible(true);
 	}
 
@@ -322,9 +310,10 @@ public class Main {
 		BufferedImage image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_4BYTE_ABGR);
 		Graphics2D g2 = image.createGraphics();
 		panel.paint(g2);
+		
 		try {
 			ImageIO.write(image, fileExtension,
-					new File(System.getProperty("user.dir"), fileName + "." + fileExtension));
+					new File(System.getProperty("user.dir"), fileName + "." + fileExtension));//parent directory and file.
 			System.out.println(System.getProperty("user.dir"));
 			System.out.println("Panel saved as Image.");
 		} catch (Exception e) {

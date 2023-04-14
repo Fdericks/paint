@@ -15,32 +15,15 @@ public class Canvas extends JPanel { // specialized JPanel
 	private int initialX;
 	private int initialY;
 
-	private Color currentColor = Color.BLACK;
-
 	private Shape currentShape;
-	private float currentBrushWidth = 10f; //15 is default
+	private Color currentColor = Color.BLACK; //default to black.
+	private Brush currentBrush;
+	private float currentBrushWidth = 1f; // 1 is default
 
 	private ArrayList<Point> points = new ArrayList<Point>();
 	private ArrayList<Shape> shapes = new ArrayList<Shape>();
-	private Brush currentBrush;
-
-	public void setColor(Color newColor) {
-		currentColor = newColor;
-	}
-
-	public Color getColor() {
-		return currentColor;
-	}
-
-	public void setCurrentShape(Shape newShape) {
-		currentShape = newShape;
-	}
 	
-	public void setBrushWidth(float width) {
-		currentBrushWidth = width;
-	}
-
-
+	private Shape temporaryShape = new Rectangle(); // Rectangle as default to avoid crashes from paint component.
 
 	public Canvas() {
 
@@ -48,7 +31,6 @@ public class Canvas extends JPanel { // specialized JPanel
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-
 				int currentX = e.getX();
 				int currentY = e.getY();
 				try {
@@ -70,23 +52,24 @@ public class Canvas extends JPanel { // specialized JPanel
 						throw new RuntimeException("Shape not selected");
 					}
 				} catch (Exception error) {
-//					System.out.println(
-//							"Select a shape. Once we add the brush method, this catch should check for the brush size and accordingly paint.");
-
-						points = new ArrayList<Point>();
+					// Shape not selected means that the brush was being used, a new brush is
+					// started once the mouse is released so the points are reset to default.
+					points = new ArrayList<Point>();
 				}
+				temporaryShape = new Rectangle(); // temporary shape is set back to default once actual shape is
+												  // created.
 				repaint(); // calls paint component again
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
+				//create brush if no shape is selected.
 				if (currentShape == null) {
 					points.add(e.getPoint());
 					createBrush(points);
 					repaint();
-				
-				}
-				else {
+					
+				} else { //shape is selected
 					initialX = e.getX();
 					initialY = e.getY();
 				}
@@ -103,11 +86,6 @@ public class Canvas extends JPanel { // specialized JPanel
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				System.out.println("Mouse Clicked: " + e.getPoint());
-//				Circle stroke = new Circle(e.getX() - 3, e.getY() - 5, e.getX() + 3, e.getY() + 1, currentColor);
-//				shapes.add(stroke);
-//				repaint();
-
 			}
 		});
 		addMouseMotionListener(new MouseMotionListener() {
@@ -118,17 +96,52 @@ public class Canvas extends JPanel { // specialized JPanel
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
+				int currentX = e.getX();
+				int currentY = e.getY();
+				// brush add points to array
 				if (currentShape == null) {
 					points.add(e.getPoint());
 					useBrush(points);
-					repaint();
 				}
 
+				// shapes create shadow before creating the shape itself.
+				if (currentShape instanceof Rectangle) {
+					temporaryShape = new Rectangle(initialX, initialY, currentX, currentY, currentColor);
+				} else if (currentShape instanceof EmptyRectangle) {
+					temporaryShape = new EmptyRectangle(initialX, initialY, currentX, currentY, currentColor);
+				} else if (currentShape instanceof Triangle) {
+					temporaryShape = new Triangle(initialX, initialY, currentX, currentY, currentColor);
+				} else if (currentShape instanceof EmptyTriangle) {
+					temporaryShape = new EmptyTriangle(initialX, initialY, currentX, currentY, currentColor);
+				} else if (currentShape instanceof Circle) {
+					temporaryShape = new Circle(initialX, initialY, currentX, currentY, currentColor);
+				} else if (currentShape instanceof EmptyCircle) {
+					temporaryShape = new EmptyCircle(initialX, initialY, currentX, currentY, currentColor);
+				} else if (currentShape instanceof Line) {
+					temporaryShape = new Line(initialX, initialY, currentX, currentY, currentColor);
+				}
+				repaint();
 			}
 		});
 
 	}
 
+	public void setColor(Color newColor) {
+		currentColor = newColor;
+	}
+
+	public Color getColor() {
+		return currentColor;
+	}
+
+	public void setCurrentShape(Shape newShape) {
+		currentShape = newShape;
+	}
+
+	public void setBrushWidth(float width) {
+		currentBrushWidth = width;
+	}
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		repaint();
@@ -136,8 +149,12 @@ public class Canvas extends JPanel { // specialized JPanel
 			g.setColor(shape.getShapeColor());
 			shape.draw(g);
 		}
-	}
+		g.setColor(temporaryShape.getShapeColor());
+		temporaryShape.draw(g);
 
+	}
+	
+	//the following methods instantiate a shape and add it into the shapes array that paintComponent uses.
 	private void createRectangle(int newX, int newY) {
 
 		Rectangle rect = new Rectangle(initialX, initialY, newX, newY, currentColor);
@@ -175,18 +192,18 @@ public class Canvas extends JPanel { // specialized JPanel
 	}
 
 	private void createLine(int newX, int newY) {
-
 		Line line;
 		line = new Line(initialX, initialY, newX, newY, currentColor);
 		shapes.add(line);
 
 	}
-	
+   
 	private void createBrush(ArrayList<Point> points) {
-		Brush brush = new Brush(points,currentColor,currentBrushWidth);
+		Brush brush = new Brush(points, currentColor, currentBrushWidth);
 		shapes.add(brush);
 		currentBrush = brush;
 	}
+	// to avoid creating a new shape at every point, useBrush adds points to the currently working brush.
 	private void useBrush(ArrayList<Point> points) {
 		currentBrush.setPoints(points);
 	}
