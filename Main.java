@@ -296,6 +296,10 @@ public class Main {
 		mainFrame.setVisible(true);
 	}
 
+	/**
+	 * This method saves the image as a png file to the source file. 
+	 * @param panel 
+	 */
 	private static void saveImage(Component panel) {
 		// Create Panel to go inside Input Dialog
 		String fileName;
