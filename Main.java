@@ -22,6 +22,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * Main contains the canvas and panel for color buttons and shape buttons
+ * Main class will save image if applicable 
+ * @author Derick Flores
+ * @author Bridget Brigadoi
+ * @author Taylor Holdridge
+ *
+ */
 public class Main {
 
 	public static void main(String[] args) {

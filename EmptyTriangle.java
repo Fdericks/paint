@@ -4,6 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 
+/** 
+ * EmptyTriangle class is responsible for drawing a hollow triangle to the canvas 
+ * based on user's start and end points. EmptyTriangle class inherits from Shape.
+ * @author Derick Flores
+ * @author Bridget Brigadoi
+ * @author Taylor Holdridge
+ *
+ */
 public class EmptyTriangle extends Shape {
 
 	public EmptyTriangle() {

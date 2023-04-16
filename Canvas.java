@@ -10,6 +10,16 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+/**
+ * Canvas creates shapes and drawings based on user's choice.
+ * Canvas saves the start and end points based on the user's pressing and releasing of mouse.
+ * Canvas will draw using the brush tool if no shape is selected.
+ * 
+ * @author Derick Flores
+ * @author Bridget Brigadoi
+ * @author Taylor Holdridge
+ *
+ */
 public class Canvas extends JPanel { // specialized JPanel
 
 	private int initialX;
@@ -56,8 +66,7 @@ public class Canvas extends JPanel { // specialized JPanel
 					// started once the mouse is released so the points are reset to default.
 					points = new ArrayList<Point>();
 				}
-				temporaryShape = new Rectangle(); // temporary shape is set back to default once actual shape is
-												  // created.
+				temporaryShape = new Rectangle(); // temporary shape is set back to default once actual shape is created.
 				repaint(); // calls paint component again
 			}
 
@@ -144,6 +153,7 @@ public class Canvas extends JPanel { // specialized JPanel
 	
 	@Override
 	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		repaint();
 		for (Shape shape : shapes) {
 			g.setColor(shape.getShapeColor());

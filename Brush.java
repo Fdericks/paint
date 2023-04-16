@@ -8,6 +8,16 @@ import java.awt.Point;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
+/**
+ * Brush is responsible for drawing lines based on the dragging of the user's mouse 
+ * after the user's initial press if no shape was selected by the user. 
+ * User can select various brush width sizes. 
+ * 
+ * @author Derick Flores
+ * @author Bridget Brigadoi
+ * @author Taylor Holdridge
+ *
+ */
 public class Brush extends Shape {
 
 	ArrayList<Point> points = new ArrayList<Point>();
@@ -16,13 +26,13 @@ public class Brush extends Shape {
 	private float defaultBrushWidth = 1;
 
 	public Brush() {
-
 	}
 
+
 	public Brush(ArrayList<Point> points, Color color, float brushWidth) {
-		this.points = points;
+		setPoints(points);
 		setShapeColor(color);
-		this.brushWidth = brushWidth;
+		setBrushWidth(brushWidth);
 	}
 
 	@Override
@@ -39,6 +49,7 @@ public class Brush extends Shape {
 		g2.setStroke(new BasicStroke(defaultBrushWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 	}
 	
+
 	public void addPoint(Point p) {
 		points.add(p);
 	}
@@ -49,6 +60,10 @@ public class Brush extends Shape {
 
 	public void setBrushWidth(float brushWidth) {
 		this.brushWidth = brushWidth;
+	}
+
+	public ArrayList<Point> getPoints() {
+		return points;
 	}
 	
 	public void setPoints(ArrayList<Point> points) {

@@ -4,6 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 
+/**
+ * Triangle class is responsible for drawing a solid triangle to the canvas 
+ * based on user's start and end points. Triangle class inherits from Shape. 
+ * 
+ * @author Derick Flores
+ * @author Bridget Brigadoi
+ * @author Taylor Holdridge
+ *
+ */
 public class Triangle extends Shape {
 
 	public Triangle() {

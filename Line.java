@@ -3,13 +3,21 @@ package groupProject.paint.main;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * Line class is responsible for drawing a line to the canvas 
+ * based on the user's press and release of the mouse.
+ * @author Derick Flores
+ * @author Bridget Brigadoi
+ * @author Taylor Holdridge 
+ *
+ */
 public class Line extends Shape {
 
 	public Line() {
 	}
 
-	public Line(int x1, int y1, int x2, int y2, Color color) {
-		super(x1, y1, x2, y2, color);
+	public Line(int initialX, int initialY, int finalX, int finalY, Color color) {
+		super(initialX, initialY, finalX, finalY, color);
 	}
 
 	@Override

@@ -3,6 +3,16 @@ package groupProject.paint.main;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * This class is the blueprint for individual shapes.
+ * The Shape class is responsible for keeping track of the points,
+ * height, and width of a shape. 
+ * Shape class allows shape to be drawn in any direction. 
+ * @author Derick Flores
+ * @author Bridget Brigadoi
+ * @author Taylor Holdridge
+ *
+ */
 public abstract class Shape {
 
 	private int x;
@@ -20,11 +30,16 @@ public abstract class Shape {
 
 	public Shape(int initialX, int initialY, int finalX, int finalY, Color color) {
 
-		this.initialX = initialX;
-		this.initialY = initialY;
-		this.newX = finalX;
-		this.newY = finalY;
-		this.shapeColor = color;
+		setInitialX(initialX);
+		setInitialY(initialY);
+		setNewX(finalX);
+		setNewY(finalY);
+		setShapeColor(color);
+//		this.initialX = initialX;
+//		this.initialY = initialY;
+//		this.newX = finalX;
+//		this.newY = finalY;
+//		this.shapeColor = color;
 		calculateQuadrant();
 	}
 
@@ -100,8 +115,20 @@ public abstract class Shape {
 		this.newY = newY;
 	}
 
+	/**
+	 * Shape will draw according to specific coordinates
+	 * @param Graphics g
+	 */
 	public abstract void draw(Graphics g);
 
+	/**
+	 * This method calculates the width and height of shape being drawn using the 
+	 * initial and final (x,y) points. 
+	 * This method reassigns the initial (x,y) coordinates based on 
+	 * what direction/quadrant the user draws the shape.
+	 * To find what quadrant the user drew in, the initial click of the user's mouse
+	 * is considered the origin  
+	 */
 	public void calculateQuadrant() {
 
 		width = Math.abs(initialX - newX);
