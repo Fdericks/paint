@@ -35,11 +35,6 @@ public abstract class Shape {
 		setNewX(finalX);
 		setNewY(finalY);
 		setShapeColor(color);
-//		this.initialX = initialX;
-//		this.initialY = initialY;
-//		this.newX = finalX;
-//		this.newY = finalY;
-//		this.shapeColor = color;
 		calculateQuadrant();
 	}
 
