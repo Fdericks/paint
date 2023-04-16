@@ -1,17 +1,11 @@
 package groupProject.paint.main;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
-
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
@@ -20,7 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  * Main contains the canvas and panel for color buttons and shape buttons
@@ -53,8 +46,8 @@ public class Main {
 		JPanel topPanel = new JPanel();
 		topPanel.add(colorButtonPanel);
 		topPanel.add(shapeButtonPanel);
-		
-		//button panels layout setup.
+
+		// button panels layout setup.
 		GridLayout gridLayout = new GridLayout(2, 0); // create grid of two rows and as many columns as necessary.
 		colorButtonPanel.setLayout(gridLayout);
 		shapeButtonPanel.setLayout(gridLayout);
@@ -65,6 +58,8 @@ public class Main {
 		Canvas canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(canvasWidth, canvasHeight));
 		canvas.setBackground(Color.WHITE);
+
+		ImageSaver imgSaver = new ImageSaver();
 
 		// define buttons lists with action listeners
 
@@ -149,7 +144,7 @@ public class Main {
 				Color color = JColorChooser.showDialog(colorButton, "Select Color", canvas.getColor());
 				canvas.setColor(color);
 			}
-		}; 
+		};
 		colorButton.addActionListener(colorAL);
 		colorButtons.add(colorButton);
 
@@ -229,15 +224,16 @@ public class Main {
 		};
 		lineBtn.addActionListener(lineAL);
 		shapeButtons.add(lineBtn);
-		
-		//brushBtn allows the user to select the brush width by displaying a MessageDialog with a ComboBox.
+
+		// brushBtn allows the user to select the brush width by displaying a
+		// MessageDialog with a ComboBox.
 		JButton brushBtn = new JButton("Brush");
 		ActionListener brushAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//create panel for MessageDialog
+				// create panel for MessageDialog
 				JPanel brushPanel = new JPanel();
-				String[] sizeStr = new String[8]; //array for comboBox with different brush size options.
+				String[] sizeStr = new String[8]; // array for comboBox with different brush size options.
 				sizeStr[0] = "1";
 				sizeStr[1] = "2";
 				sizeStr[2] = "5";
@@ -246,16 +242,16 @@ public class Main {
 				sizeStr[5] = "12";
 				sizeStr[6] = "15";
 				sizeStr[7] = "20";
-				
+
 				JComboBox<String> size = new JComboBox<String>(sizeStr); // drop-down menu
 				size.setVisible(true);
-				
+
 				brushPanel.add(new JLabel("Select Brush Size"));
 				brushPanel.add(size);
-				
-				canvas.setCurrentShape(null); //null current shape means a brush is being used.
+
+				canvas.setCurrentShape(null); // null current shape means a brush is being used.
 				JOptionPane.showMessageDialog(canvas, brushPanel);
-				int index = size.getSelectedIndex(); //selected comboBox item index
+				int index = size.getSelectedIndex(); // selected comboBox item index
 				float brushWidth = Float.parseFloat(sizeStr[index]);
 				canvas.setBrushWidth(brushWidth);
 			}
@@ -271,66 +267,30 @@ public class Main {
 			shapeButtonPanel.add(button);
 		}
 
-		//Save Image Button
+		// Save Image Button
 		JButton saveImageBtn = new JButton("Save Image");
 		ActionListener saveImageAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				saveImage(canvas);
+				imgSaver.saveImage(canvas);
 			}
 		};
 		saveImageBtn.addActionListener(saveImageAL);
 		topPanel.add(saveImageBtn);
 
-		//Once buttons are setup now the main panel be setup.
+		// Once buttons are setup now the main panel be setup.
 		// Main Panel Layout Setup
 		GroupLayout layout = new GroupLayout(mainPanel);
 		layout.setAutoCreateGaps(true);
 		layout.setAutoCreateContainerGaps(true);
 		mainPanel.setLayout(layout);
 		layout.setHorizontalGroup(layout.createSequentialGroup()
-				.addGroup(layout.createParallelGroup().addComponent(topPanel).addComponent(canvas))); //creates a group of the top panel and canvas in parallel for the horizontal.
-		layout.setVerticalGroup(layout.createSequentialGroup().addComponent(topPanel).addComponent(canvas)); //creates a group of the top panel and canvas in vertical.
-
+				.addGroup(layout.createParallelGroup().addComponent(topPanel).addComponent(canvas))); // creates a group of the top panel and
+																									  // canvas in parallel for the horizontal.
+		layout.setVerticalGroup(layout.createSequentialGroup().addComponent(topPanel).addComponent(canvas)); // creates a group of the top
+																											 // panel and canvas in vertical.
 		mainFrame.add(mainPanel);
 		mainFrame.setVisible(true);
 	}
 
-	/**
-	 * This method saves the image as a png file to the source file. 
-	 * @param panel 
-	 */
-	private static void saveImage(Component panel) {
-		// Create Panel to go inside Input Dialog
-		String fileName;
-		String fileExtension;
-		JPanel filePanel = new JPanel();
-		String[] extensionStr = new String[2];
-		extensionStr[0] = "png";
-		extensionStr[1] = "jpeg";
-
-		JComboBox<String> extension = new JComboBox<String>(extensionStr); // drop-down menu
-		extension.setVisible(true);
-		filePanel.add(new JLabel("Input file name and select file type."));
-		filePanel.add(extension);
-
-		fileName = JOptionPane.showInputDialog(panel, filePanel); // get values from input dialog
-		fileExtension = (String) extension.getSelectedItem();
-
-		// create graphics to be saved
-		Dimension size = panel.getSize();
-		BufferedImage image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_4BYTE_ABGR);
-		Graphics2D g2 = image.createGraphics();
-		panel.paint(g2);
-		
-		try {
-			ImageIO.write(image, fileExtension,
-					new File(System.getProperty("user.dir"), fileName + "." + fileExtension));//parent directory and file.
-			System.out.println(System.getProperty("user.dir"));
-			System.out.println("Panel saved as Image.");
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(panel, "Error: Image not saved.");
-//			e.printStackTrace();
-		}
-	}
 }
