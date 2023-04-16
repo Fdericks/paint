@@ -8,18 +8,11 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/**
- * ImageSaver class saves image of canvas. 
- * @author Derick Flores
- * @author Bridget Brigadoi
- * @author Taylor Holdridge
- *
- */
 public class ImageSaver {
 
 	
 	/**
-	 * This method saves the image as a png file to the source file. 
+	 * 
 	 * @param panel
 	 */
 	public void saveImage(JPanel panel) {
@@ -27,7 +20,6 @@ public class ImageSaver {
 		String fileName;
 		String fileExtension;
 		fileExtension = "png";
-
 
 		try {
 			fileName = JOptionPane.showInputDialog(panel, "Input file name."); // get values from input dialog

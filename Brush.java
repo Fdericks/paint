@@ -10,7 +10,8 @@ import java.util.ArrayList;
 
 /**
  * Brush is responsible for drawing lines based on the dragging of the user's mouse 
- * after the user's initial press if no shape was selected by the user. 
+ * after the user's initial press if no shape was selected by the user or if the user
+ * selects the brush.
  * User can select various brush width sizes. 
  * 
  * @author Derick Flores
@@ -26,13 +27,13 @@ public class Brush extends Shape {
 	private float defaultBrushWidth = 1;
 
 	public Brush() {
+
 	}
 
-
 	public Brush(ArrayList<Point> points, Color color, float brushWidth) {
-		setPoints(points);
+		this.points = points;
 		setShapeColor(color);
-		setBrushWidth(brushWidth);
+		this.brushWidth = brushWidth;
 	}
 
 	@Override
@@ -49,7 +50,6 @@ public class Brush extends Shape {
 		g2.setStroke(new BasicStroke(defaultBrushWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 	}
 	
-
 	public void addPoint(Point p) {
 		points.add(p);
 	}
@@ -60,10 +60,6 @@ public class Brush extends Shape {
 
 	public void setBrushWidth(float brushWidth) {
 		this.brushWidth = brushWidth;
-	}
-
-	public ArrayList<Point> getPoints() {
-		return points;
 	}
 	
 	public void setPoints(ArrayList<Point> points) {

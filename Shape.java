@@ -30,11 +30,11 @@ public abstract class Shape {
 
 	public Shape(int initialX, int initialY, int finalX, int finalY, Color color) {
 
-		setInitialX(initialX);
-		setInitialY(initialY);
-		setNewX(finalX);
-		setNewY(finalY);
-		setShapeColor(color);
+		this.initialX = initialX;
+		this.initialY = initialY;
+		this.newX = finalX;
+		this.newY = finalY;
+		this.shapeColor = color;
 		calculateQuadrant();
 	}
 

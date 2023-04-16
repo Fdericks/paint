@@ -17,7 +17,7 @@ public class Line extends Shape {
 	}
 
 	public Line(int initialX, int initialY, int finalX, int finalY, Color color) {
-		super(initialX, initialY, finalX, finalY, color);
+		super(initialX, initialY, initialX, initialY, color);
 	}
 
 	@Override
