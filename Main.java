@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.Character.UnicodeBlock;
-import java.lang.Character.UnicodeScript;
 import java.util.ArrayList;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -69,8 +67,7 @@ public class Main {
 		ArrayList<JButton> shapeButtons = new ArrayList<JButton>();
 
 		// color buttons
-		JButton blackBtn = new JButton();
-		blackBtn.setBackground(Color.BLACK);	
+		JButton blackBtn = new JButton("Black");
 		ActionListener blackAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -80,8 +77,7 @@ public class Main {
 		blackBtn.addActionListener(blackAL);
 		colorButtons.add(blackBtn);
 
-		JButton redBtn = new JButton();
-		redBtn.setBackground(Color.RED);
+		JButton redBtn = new JButton("Red");
 		ActionListener redAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -91,8 +87,7 @@ public class Main {
 		redBtn.addActionListener(redAL);
 		colorButtons.add(redBtn);
 
-		JButton oranBtn = new JButton();
-		oranBtn.setBackground(Color.ORANGE);
+		JButton oranBtn = new JButton("Orange");
 		ActionListener oranAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -102,8 +97,7 @@ public class Main {
 		oranBtn.addActionListener(oranAL);
 		colorButtons.add(oranBtn);
 
-		JButton yellowBtn = new JButton();
-		yellowBtn.setBackground(Color.YELLOW);
+		JButton yellowBtn = new JButton("Yellow");
 		ActionListener yellowAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -113,8 +107,7 @@ public class Main {
 		yellowBtn.addActionListener(yellowAL);
 		colorButtons.add(yellowBtn);
 
-		JButton greenBtn = new JButton();
-		greenBtn.setBackground(Color.GREEN);
+		JButton greenBtn = new JButton("Green");
 		ActionListener greenAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -123,9 +116,8 @@ public class Main {
 		};
 		greenBtn.addActionListener(greenAL);
 		colorButtons.add(greenBtn);
-		
-		JButton blueBtn = new JButton();
-		blueBtn.setBackground(Color.BLUE);
+
+		JButton blueBtn = new JButton("Blue");
 		ActionListener blueAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -135,8 +127,7 @@ public class Main {
 		blueBtn.addActionListener(blueAL);
 		colorButtons.add(blueBtn);
 
-		JButton whiteBtn = new JButton();
-		whiteBtn.setBackground(Color.WHITE);
+		JButton whiteBtn = new JButton("White");
 		ActionListener whiteAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -158,7 +149,7 @@ public class Main {
 		colorButtons.add(colorButton);
 
 		// shape buttons
-		JButton rectBtn = new JButton("\u25A0");
+		JButton rectBtn = new JButton("Rectangle");
 		ActionListener rectAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -169,7 +160,7 @@ public class Main {
 		rectBtn.addActionListener(rectAL);
 		shapeButtons.add(rectBtn);
 
-		JButton emptyRectBtn = new JButton("\u25A1");
+		JButton emptyRectBtn = new JButton("Empty Rectangle");
 		ActionListener emptyRectAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -180,7 +171,7 @@ public class Main {
 		emptyRectBtn.addActionListener(emptyRectAL);
 		shapeButtons.add(emptyRectBtn);
 
-		JButton triangleBtn = new JButton("\u25B2");
+		JButton triangleBtn = new JButton("Triangle");
 		ActionListener triangleAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -191,7 +182,7 @@ public class Main {
 		triangleBtn.addActionListener(triangleAL);
 		shapeButtons.add(triangleBtn);
 
-		JButton empTriangleBtn = new JButton("\u25B3");
+		JButton empTriangleBtn = new JButton("Empty Triangle");
 		ActionListener empTriangleAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -202,7 +193,7 @@ public class Main {
 		empTriangleBtn.addActionListener(empTriangleAL);
 		shapeButtons.add(empTriangleBtn);
 
-		JButton circleBtn = new JButton("\u25CF");
+		JButton circleBtn = new JButton("Circle");
 		ActionListener circleAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -213,7 +204,7 @@ public class Main {
 		circleBtn.addActionListener(circleAL);
 		shapeButtons.add(circleBtn);
 
-		JButton empCircleBtn = new JButton("\u25CB");
+		JButton empCircleBtn = new JButton("Empty Circle");
 		ActionListener empCircleAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -224,7 +215,7 @@ public class Main {
 		empCircleBtn.addActionListener(empCircleAL);
 		shapeButtons.add(empCircleBtn);
 
-		JButton lineBtn = new JButton("\u2500");
+		JButton lineBtn = new JButton("Line");
 		ActionListener lineAL = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -270,16 +261,8 @@ public class Main {
 
 		for (JButton button : colorButtons) {
 			colorButtonPanel.add(button);
-			//used to show color on button
-			button.setOpaque(true); 
-			button.setContentAreaFilled(true);
-		    button.setBorderPainted(false);
-		    button.setFocusPainted(true);
 		}
-		colorButton.setOpaque(false);
-		colorButton.setContentAreaFilled(false);
-	    colorButton.setBorderPainted(true);
-	   
+
 		for (JButton button : shapeButtons) {
 			shapeButtonPanel.add(button);
 		}

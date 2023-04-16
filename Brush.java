@@ -26,10 +26,19 @@ public class Brush extends Shape {
 	private float brushWidth; // default brush width is 10f
 	private float defaultBrushWidth = 1;
 
+	/**
+	 * Creates a new brush
+	 */
 	public Brush() {
 
 	}
-
+	
+	/**
+	 * Creates new brush
+	 * @param points - list of points that are saves as the user drags the mouse 
+	 * @param color - color user selected 
+	 * @param brushWidth- width user selected 
+	 */
 	public Brush(ArrayList<Point> points, Color color, float brushWidth) {
 		this.points = points;
 		setShapeColor(color);
@@ -67,3 +76,15 @@ public class Brush extends Shape {
 	}
 	
 }
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -15,9 +15,21 @@ import java.awt.Polygon;
  */
 public class Triangle extends Shape {
 
+	/**
+	 * Creates new solid triangle
+	 */
 	public Triangle() {
 	}
 
+	/**
+	 * Creates new solid triangle with initial and final (x,y) points based on
+	 * the user's press and release of the mouse. 
+	 * @param initialX - the x point based on the press of the user's mouse
+	 * @param initialY - the y point based on the press of the user's mouse
+	 * @param finalX - the x point based on the release of the user's mouse
+	 * @param finalY - the y point based on the release of the user's mouse
+	 * @param color - color the user chooses 
+	 */
 	public Triangle(int initialX, int initialY, int finalX, int finalY, Color color) {
 		super(initialX, initialY, finalX, finalY, color);
 	}

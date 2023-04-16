@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- * ImageSaver class saves image of a panel. 
+ * ImageSaver class saves image of canvas. 
  * @author Derick Flores
  * @author Bridget Brigadoi
  * @author Taylor Holdridge
@@ -19,14 +19,15 @@ public class ImageSaver {
 
 	
 	/**
-	 * This method saves the panel selected as a png file to the source file. 
-	 * @param panel - the panel that is to be saved
+	 * This method saves the image as a png file to the source file. 
+	 * @param panel
 	 */
 	public void saveImage(JPanel panel) {
 		// Create Panel to go inside Input Dialog
 		String fileName;
 		String fileExtension;
 		fileExtension = "png";
+
 
 		try {
 			fileName = JOptionPane.showInputDialog(panel, "Input file name."); // get values from input dialog

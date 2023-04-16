@@ -25,16 +25,28 @@ public abstract class Shape {
 	private int newX;
 	private int newY;
 
+	/**
+	 * Creates a new shape 
+	 */
 	public Shape() {
 	}
 
+	/**
+	 * Creates new shape with initial and final (x,y) points based on
+	 * the user's press and release of the mouse. 
+	 * @param initialX - the x point based on the press of the user's mouse
+	 * @param initialY - the y point based on the press of the user's mouse
+	 * @param finalX - the x point based on the release of the user's mouse
+	 * @param finalY - the y point based on the release of the user's mouse
+	 * @param color - color the user chooses 
+	 */
 	public Shape(int initialX, int initialY, int finalX, int finalY, Color color) {
 
-		this.initialX = initialX;
-		this.initialY = initialY;
-		this.newX = finalX;
-		this.newY = finalY;
-		this.shapeColor = color;
+		setInitialX(initialX);
+		setInitialY(initialY);
+		setNewX(finalX);
+		setNewY(finalY);
+		setShapeColor(color);
 		calculateQuadrant();
 	}
 
