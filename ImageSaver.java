@@ -8,12 +8,19 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/**
+ * ImageSaver class saves image of a panel. 
+ * @author Derick Flores
+ * @author Bridget Brigadoi
+ * @author Taylor Holdridge
+ *
+ */
 public class ImageSaver {
 
 	
 	/**
-	 * 
-	 * @param panel
+	 * This method saves the panel selected as a png file to the source file. 
+	 * @param panel - the panel that is to be saved
 	 */
 	public void saveImage(JPanel panel) {
 		// Create Panel to go inside Input Dialog
