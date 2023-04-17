@@ -34,9 +34,9 @@ public class Canvas extends JPanel { // specialized JPanel
 	private ArrayList<Shape> shapes = new ArrayList<Shape>();
 	
 	private Shape temporaryShape = new Rectangle(); // Rectangle as default to avoid crashes from paint component.
-
+	
 	/**
-	 * Creates a canvas 
+	 * Creates a canvas that allows the user to paint shapes and draw on it.
 	 */
 	public Canvas() {
 
@@ -69,7 +69,8 @@ public class Canvas extends JPanel { // specialized JPanel
 					// started once the mouse is released so the points are reset to default.
 					points = new ArrayList<Point>();
 				}
-				temporaryShape = new Rectangle(); // temporary shape is set back to default once actual shape is created.
+				temporaryShape = new Rectangle(); // temporary shape is set back to default once actual shape is
+												  // created.
 				repaint(); // calls paint component again
 			}
 
@@ -156,7 +157,6 @@ public class Canvas extends JPanel { // specialized JPanel
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
 		repaint();
 		for (Shape shape : shapes) {
 			g.setColor(shape.getShapeColor());

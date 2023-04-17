@@ -32,12 +32,12 @@ public class Brush extends Shape {
 	public Brush() {
 
 	}
-	
+
 	/**
-	 * Creates new brush
+	 * Creates a new brush
 	 * @param points - list of points that are saves as the user drags the mouse 
-	 * @param color - color user selected 
-	 * @param brushWidth- width user selected 
+	 * @param color - color of the brush
+	 * @param brushWidth- width of the brush
 	 */
 	public Brush(ArrayList<Point> points, Color color, float brushWidth) {
 		this.points = points;
@@ -76,15 +76,3 @@ public class Brush extends Shape {
 	}
 	
 }
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
